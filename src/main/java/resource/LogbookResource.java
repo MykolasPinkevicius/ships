@@ -1,8 +1,6 @@
 package resource;
 
-import model.Catch;
-import model.Departure;
-import model.Logbook;
+import model.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,7 +12,7 @@ public class LogbookResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Logbook getLogbook() {
-        Logbook logbook1 = new Logbook(new Departure("Santamania", new Date(2019)), new Catch("Bass", 56.5));
+        Logbook logbook1 = new Logbook(new Departure("Santamania", new Date(2019)), new Catch("Bass", 56.5), new Arrival("Santamania", new Date(2019)), new EndOfFishing(new Date(2019)));
         return logbook1;
     }
 
