@@ -6,7 +6,6 @@ import model.Logbook;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Path("logbooks")
@@ -15,7 +14,7 @@ public class LogbookResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Logbook getLogbook() {
-        Logbook logbook1 = new Logbook(new Departure("Santamania", new Date()), new Catch("Bass", 56.5));
+        Logbook logbook1 = new Logbook(new Departure("Santamania", new Date(2019)), new Catch("Bass", 56.5));
         return logbook1;
     }
 
@@ -25,4 +24,5 @@ public class LogbookResource {
     public Logbook createLogBook(Logbook logbook) {
         return logbook;
     }
+
 }
