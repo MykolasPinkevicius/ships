@@ -16,7 +16,8 @@ public class Logbook {
         this.endOfFishing = endOfFishing;
     }
 
-    public Departure getDeparture() {
+    public Departure getDeparture() {{
+    }
         return departure;
     }
 
@@ -49,5 +50,7 @@ public class Logbook {
     }
 
     public Logbook() {};
+
+
 
 }
