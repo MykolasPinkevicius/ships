@@ -8,6 +8,7 @@ public class Catch {
         this.species = species;
         this.weight = weight;
     }
+    public Catch() {}
 
     public String getSpecies() {
         return species;

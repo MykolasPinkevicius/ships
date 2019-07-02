@@ -1,5 +1,11 @@
 package model;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.net.URI;
+
+@XmlRootElement
 public class Logbook {
 
     private Departure departure;
@@ -9,6 +15,7 @@ public class Logbook {
         this.departure = departure;
         this.aCatch = aCatch;
     }
+    public Logbook() {};
 
     public Departure getDeparture() {
         return departure;

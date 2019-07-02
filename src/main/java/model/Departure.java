@@ -1,15 +1,17 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Departure {
     private String port;
-    private LocalDate date;
+    private Date date;
 
-    public Departure(String port, LocalDate date) {
+    public Departure(String port, Date date) {
         this.port = port;
         this.date = date;
     }
+    public Departure() {}
 
     public String getPort() {
         return port;
@@ -19,11 +21,11 @@ public class Departure {
         this.port = port;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
