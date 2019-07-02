@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Path("logbooks")
 public class LogbookResource {
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Logbook getLogbook() {
