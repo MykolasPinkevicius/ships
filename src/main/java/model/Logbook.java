@@ -28,7 +28,6 @@ public class Logbook {
     @OneToOne
     private EndOfFishing endOfFishing;
     @NotNull
-    @Transient
     private String communicationType;
 
     public Logbook(Departure departure, Catch aCatch, Arrival arrival, EndOfFishing endOfFishing, String communicationType) {
