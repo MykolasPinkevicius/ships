@@ -1,5 +1,10 @@
 package model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import util.LocalDateDeserializer;
+import util.LocalDateSerializer;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.*;
@@ -7,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -20,7 +25,9 @@ public class Arrival {
     @NotNull
     private String port;
     @NotNull
-    private Date date;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate date;
 
     public String getPort() {
         return port;
@@ -30,15 +37,15 @@ public class Arrival {
         this.port = port;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public Arrival(String port, Date date) {
+    public Arrival(String port, LocalDate date) {
         this.port = port;
         this.date = date;
     }

@@ -27,12 +27,24 @@ public class Logbook {
     @NotNull
     @OneToOne
     private EndOfFishing endOfFishing;
+    @NotNull
+    @Transient
+    private String communicationType;
 
-    public Logbook(Departure departure, Catch aCatch, Arrival arrival, EndOfFishing endOfFishing) {
+    public Logbook(Departure departure, Catch aCatch, Arrival arrival, EndOfFishing endOfFishing, String communicationType) {
         this.departure = departure;
         this.aCatch = aCatch;
         this.arrival = arrival;
         this.endOfFishing = endOfFishing;
+        this.communicationType = communicationType;
+    }
+
+    public String getCommunicationType() {
+        return communicationType;
+    }
+
+    public void setCommunicationType(String communicationType) {
+        this.communicationType = communicationType;
     }
 
     public Departure getDeparture() {{
@@ -77,6 +89,7 @@ public class Logbook {
                         .add("catch", aCatch.toJson())
                         .add("arrival", arrival.toJson())
                         .add("endoffishing", endOfFishing.toJson())
+                        .add("communicationtype", this.communicationType)
                         .build())
                 .build();
     }
