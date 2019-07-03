@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @Entity
-//@Table(name = "arrivals")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Arrival {
 

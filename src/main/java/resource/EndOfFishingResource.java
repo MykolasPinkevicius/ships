@@ -1,7 +1,7 @@
 package resource;
 
-import controller.LogbookController;
-import model.*;
+import controller.EndOfFishingController;
+import model.EndOfFishing;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,37 +15,36 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
-@Path("logbooks")
+@Path("endoffishing")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
-public class LogbookResource {
+public class EndOfFishingResource {
     @Inject
-    LogbookController logbookController;
+    EndOfFishingController endOfFishingController;
 
     @POST
-    public Response save(@Valid Logbook logbook) {
-        this.logbookController.create(logbook);
+    public Response save(@Valid EndOfFishing endOfFishing) {
+        this.endOfFishingController.create(endOfFishing);
         return Response.ok().build();
     }
 
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {
-        Logbook logbook = logbookController.findById(id);
-        return logbook.toJson();
+        EndOfFishing endOfFishing = endOfFishingController.findById(id);
+        return endOfFishing.toJson();
     }
 
     @GET
-    public List<Logbook> findAll() {
+    public List<EndOfFishing> findAll() {
         JsonArrayBuilder list = Json.createArrayBuilder();
-        List<Logbook> all = logbookController.findAll();
+        List<EndOfFishing> all = endOfFishingController.findAll();
         return all;
     }
 
     @DELETE
     @Path("/{id}")
     public void remove(@PathParam("id") Long id) {
-        logbookController.remove(id);
+        endOfFishingController.remove(id);
     }
-
 }

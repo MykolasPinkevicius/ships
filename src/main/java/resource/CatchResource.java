@@ -1,16 +1,18 @@
 package resource;
 
-import controller.ArrivalController;
 import controller.CatchController;
 import model.Catch;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Stateless
 @Path("catch")
@@ -31,6 +33,18 @@ public class CatchResource {
     public JsonObject findById(@PathParam("id") Long id) {
         Catch aCatch = catchController.findById(id);
         return aCatch.toJson();
+    }
+    @GET
+    public List<Catch> findAll() {
+        JsonArrayBuilder list = Json.createArrayBuilder();
+        List<Catch> all = catchController.findAll();
+        return all;
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void remove(@PathParam("id") Long id) {
+        catchController.remove(id);
     }
 
 }

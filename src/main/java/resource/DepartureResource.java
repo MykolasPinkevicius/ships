@@ -1,7 +1,8 @@
 package resource;
 
-import controller.LogbookController;
-import model.*;
+import controller.DepartureController;
+import model.Arrival;
+import model.Departure;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,37 +16,36 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
-@Path("logbooks")
+@Path("departure")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
-public class LogbookResource {
+public class DepartureResource {
     @Inject
-    LogbookController logbookController;
+    DepartureController departureController;
 
     @POST
-    public Response save(@Valid Logbook logbook) {
-        this.logbookController.create(logbook);
+    public Response save(@Valid Departure departure) {
+        this.departureController.create(departure);
         return Response.ok().build();
     }
 
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {
-        Logbook logbook = logbookController.findById(id);
-        return logbook.toJson();
+        Departure departure = departureController.findById(id);
+        return departure.toJson();
     }
 
     @GET
-    public List<Logbook> findAll() {
+    public List<Departure> findAll() {
         JsonArrayBuilder list = Json.createArrayBuilder();
-        List<Logbook> all = logbookController.findAll();
+        List<Departure> all = departureController.findAll();
         return all;
     }
 
     @DELETE
     @Path("/{id}")
     public void remove(@PathParam("id") Long id) {
-        logbookController.remove(id);
+        departureController.remove(id);
     }
-
 }
