@@ -14,7 +14,7 @@ public class DatabaseSaveStrategy implements SavingStrategy {
 
     @Override
     public Response create(Logbook logbook) {
-        em.persist(logbook.getEndOfFishing());
+        em.persist(logbook.getDeparture());
         em.persist(logbook.getArrival());
         em.persist(logbook.getaCatch());
         em.persist(logbook.getEndOfFishing());

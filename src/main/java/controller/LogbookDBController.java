@@ -26,8 +26,10 @@ public class LogbookDBController {
     public Response create(Logbook logbook) throws IOException {
         if (logbook.getCommunicationType().equals("offline")) {
             savingStrategy = new FileSaveStrategy();
-        } else {
+        } else if(logbook.getCommunicationType().equals("online")) {
             savingStrategy = new DatabaseSaveStrategy(em);
+        } else {
+            return Response.serverError().build();
         }
 
         return savingStrategy.create(logbook);
