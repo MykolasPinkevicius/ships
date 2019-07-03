@@ -1,6 +1,6 @@
 package resource;
 
-import controller.LogbookController;
+import controller.LogbookDBController;
 import model.*;
 
 import javax.ejb.Stateless;
@@ -20,7 +20,7 @@ import java.util.List;
 @Consumes({MediaType.APPLICATION_JSON})
 public class LogbookResource {
     @Inject
-    LogbookController logbookController;
+    LogbookDBController logbookController;
 
     @POST
     public Response save(@Valid Logbook logbook) {

@@ -1,27 +1,36 @@
 package controller;
 
 import model.Logbook;
+import strategy.DatabaseSaveStrategy;
+import strategy.FileSaveStrategy;
+import strategy.SavingStrategy;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 
 @Stateless
-public class LogbookController {
+public class LogbookDBController {
     @PersistenceContext(name = "prod")
     EntityManager em;
+
+    private SavingStrategy savingStrategy;
 
     public List<Logbook> findAll() {
         return em.createQuery("select l from Logbook l").getResultList();
     }
 
-    public void create(Logbook logbook) {
-        em.persist(logbook.getDeparture());
-        em.persist(logbook.getaCatch());
-        em.persist(logbook.getArrival());
-        em.persist(logbook.getEndOfFishing());
-        em.persist(logbook);
+    public Response create(Logbook logbook) throws IOException {
+        if (logbook.getCommunicationType().equals("offline")) {
+            savingStrategy = new FileSaveStrategy();
+        } else {
+            savingStrategy = new DatabaseSaveStrategy(em);
+        }
+
+        return savingStrategy.create(logbook);
     }
 
     public Logbook findById(Long id) {
