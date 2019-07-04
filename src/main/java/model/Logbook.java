@@ -16,16 +16,16 @@ public class Logbook {
     @XmlTransient
     private Long id;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Departure departure;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Catch aCatch;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Arrival arrival;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EndOfFishing endOfFishing;
     @NotNull
     private String communicationType;
