@@ -1,5 +1,6 @@
 package controller;
 
+import camel.FileTransfer;
 import model.Logbook;
 import strategy.DatabaseSaveStrategy;
 import strategy.FileSaveStrategy;

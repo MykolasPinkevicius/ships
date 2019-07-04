@@ -33,14 +33,13 @@ public class LogbookResource {
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {
-        FileTransfer.save();
         Logbook logbook = logbookController.findById(id);
         return logbook.toJson();
     }
 
     @GET
     public List<Logbook> findAll() {
-        JsonArrayBuilder list = Json.createArrayBuilder();
+        FileTransfer.save();
         List<Logbook> all = logbookController.findAll();
         return all;
     }
