@@ -1,5 +1,6 @@
 package resource;
 
+import camel.FileTransfer;
 import controller.LogbookDBController;
 import model.*;
 
@@ -32,6 +33,7 @@ public class LogbookResource {
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {
+        FileTransfer.save();
         Logbook logbook = logbookController.findById(id);
         return logbook.toJson();
     }
