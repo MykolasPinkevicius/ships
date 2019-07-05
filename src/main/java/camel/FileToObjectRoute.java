@@ -10,7 +10,7 @@ import java.io.File;
 public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=true")
+        from("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true")
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);
                     ObjectMapper mapper = new ObjectMapper();
