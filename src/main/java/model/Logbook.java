@@ -83,14 +83,12 @@ public class Logbook {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("_logbook", Json.createObjectBuilder()
                         .add("departure", departure.toJson())
                         .add("catch", aCatch.toJson())
                         .add("arrival", arrival.toJson())
                         .add("endoffishing", endOfFishing.toJson())
                         .add("communicationtype", this.communicationType)
-                        .build())
-                .build();
+                        .build();
     }
 
 

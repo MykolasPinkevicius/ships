@@ -1,7 +1,6 @@
 package resource;
 
 import controller.DepartureController;
-import model.Arrival;
 import model.Departure;
 
 import javax.ejb.Stateless;

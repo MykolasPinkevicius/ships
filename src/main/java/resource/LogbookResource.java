@@ -6,8 +6,6 @@ import model.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;

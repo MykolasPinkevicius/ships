@@ -7,11 +7,10 @@ import org.apache.camel.builder.RouteBuilder;
 
 import java.io.File;
 
-public class FileToObject extends RouteBuilder {
+public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("file:C:\\Dev\\wildfly-9.0.2.Final\\?fileName=logbook.log")
-//                .setHeader(Exchange.FILE_NAME, constant("logbook.log"))
+        from("file:C:\\Dev\\wildfly-9.0.2.Final\\logbook\\")
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);
                     ObjectMapper mapper = new ObjectMapper();

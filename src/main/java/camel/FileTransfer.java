@@ -9,17 +9,14 @@ public class FileTransfer {
 
         CamelContext camelContext = new DefaultCamelContext();
         try {
-            camelContext.addRoutes(new SimpleRouteBuilder());
+//      File saving
+//            camelContext.addRoutes(new SimpleRouteBuilder());
+            camelContext.addRoutes(new FileToObjectRoute());
+            camelContext.start();
+            Thread.sleep(6000);
+            camelContext.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        camelContext.start();
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        camelContext.stop();
     }
 }
