@@ -20,7 +20,7 @@ public class ProducerAndConsumerExample {
 
                                 String message = exchange.getIn().getBody(String.class);
 
-                                message = message + "-By Dinesh Krishnan";
+                                message = message + "-By Dinesh Patrutan :DDDDD";
 
                                 exchange.getOut().setBody(message);
                             }

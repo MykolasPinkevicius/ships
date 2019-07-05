@@ -10,7 +10,7 @@ import java.io.File;
 public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("file:C:\\Dev\\wildfly-9.0.2.Final\\logbook\\")
+        from("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=true")
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);
                     ObjectMapper mapper = new ObjectMapper();
@@ -21,7 +21,7 @@ public class FileToObjectRoute extends RouteBuilder {
                 })
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                .to("http://localhost:8080/project/api/logbooks");
+                .to("http://localhost:8080/project/app/logbooks/");
 
     }
 }
