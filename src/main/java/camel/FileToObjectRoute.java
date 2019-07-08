@@ -10,13 +10,13 @@ import java.io.File;
 public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true")
+        from("timer://Footimer?period=2500&delay=2s")
+                .pollEnrich("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true")
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);
                     ObjectMapper mapper = new ObjectMapper();
                     Logbook logbook;
                     logbook = mapper.readValue(file, Logbook.class);
-                    logbook.setCommunicationType("online");
                     exchange.getOut().setBody(logbook.toJson().toString());
                 })
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))

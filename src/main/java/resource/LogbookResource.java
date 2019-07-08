@@ -37,7 +37,8 @@ public class LogbookResource {
 
     @GET
     public List<Logbook> findAll() {
-        FileTransfer.save();
+//        Mocking camel activation class
+//        FileTransfer.save();
         List<Logbook> all = logbookController.findAll();
         return all;
     }

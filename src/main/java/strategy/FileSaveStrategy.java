@@ -13,7 +13,8 @@ public class FileSaveStrategy implements SavingStrategy {
 
     public Response create(Logbook logbook) throws IOException {
         LocalDate ld = LocalDateTime.now().toLocalDate();
-        String filePath = "C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook\\" + ld + ".json";
+        double random = Math.random();
+        String filePath = "C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\" + ld + random + ".json";
         FileWriter fileWriter = new FileWriter(filePath);
         fileWriter.write(logbook.toJson().toString());
         fileWriter.flush();
