@@ -10,7 +10,7 @@ import java.io.File;
 public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("timer://Footimer?period=2500&delay=2s")
+        from("timer://Footimer?period=2500&delay=5s")
                 .pollEnrich("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true")
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);

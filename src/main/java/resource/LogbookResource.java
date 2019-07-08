@@ -43,6 +43,13 @@ public class LogbookResource {
         return all;
     }
 
+    @GET
+    @Path("/{search}")
+    public List<Logbook> findBySearch(@PathParam("search") String search) {
+        List<Logbook> searched = logbookController.findBySearch(search);
+        return searched;
+    }
+
     @DELETE
     @Path("/{id}")
     public void remove(@PathParam("id") Long id) {
