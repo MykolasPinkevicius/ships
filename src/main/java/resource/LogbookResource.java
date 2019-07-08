@@ -44,7 +44,7 @@ public class LogbookResource {
     }
 
     @GET
-    @Path("/{search}")
+    @Path("/search/{search}")
     public List<Logbook> findBySearch(@PathParam("search") String search) {
         List<Logbook> searched = logbookController.findBySearch(search);
         return searched;

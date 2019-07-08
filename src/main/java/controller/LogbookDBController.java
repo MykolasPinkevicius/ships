@@ -24,7 +24,7 @@ public class LogbookDBController {
     }
 
     public List<Logbook> findBySearch(String search) {
-        return em.createNativeQuery("SELECT ACATCH.SPECIES, ACATCH.WEIGHT, LOGBOOK.COMMUNICATIONTYPE, ARRIVAL.PORT, ARIIVAL.DATE, DEPARTURE.PORT, DEPARTURE.DATE, ENDOFFISHING.DATE FROM ARRIVAL, ACATCH, DEPARTURE, ENDOFFISHING WHERE ACATCH.SPECIES = search or ACATCH.WEIGHT = search or LOGBOOK.COMMUNICATIONTYPE = search or ARRIVAL.PORT = search or ARIIVAL.DATE = search or DEPARTURE.PORT = search or DEPARTURE.DATE = search or ENDOFFISHING.DATE = search").getResultList();
+        return em.createNativeQuery("SELECT * FROM LOGBOOK WHERE LOGBOOK.COMMUNICATIONTYPE = :search").getResultList();
     }
 
     public Response create(Logbook logbook) throws IOException {
