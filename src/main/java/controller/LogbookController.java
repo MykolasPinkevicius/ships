@@ -1,7 +1,6 @@
-package resource;
+package controller;
 
-import camel.FileTransfer;
-import controller.LogbookDBController;
+import dao.LogbookDAO;
 import model.*;
 
 import javax.ejb.Stateless;
@@ -18,13 +17,13 @@ import java.util.List;
 @Path("logbooks")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
-public class LogbookResource {
+public class LogbookController {
     @Inject
-    LogbookDBController logbookController;
+    LogbookDAO logbookController;
 
     @POST
     public Response save(@Valid Logbook logbook) throws IOException {
-        this.logbookController.create(logbook);
+        logbookController.create(logbook);
         return Response.ok().build();
     }
 

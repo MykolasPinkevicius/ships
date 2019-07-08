@@ -18,19 +18,18 @@ public class FileTransfer {
     public static void save() {
         try {
             camelContext.start();
-            Thread.sleep(1000);
             camelContext.addRoutes(new FileToObjectRoute());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-        @PreDestroy
-                public void shutdown() {
-            try {
-                camelContext.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    @PreDestroy
+    public void shutdown() {
+        try {
+            camelContext.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

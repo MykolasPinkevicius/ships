@@ -1,6 +1,8 @@
 package camel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import enums.PathEnums;
+import enums.TimerConfiguration;
 import model.Logbook;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -10,8 +12,8 @@ import java.io.File;
 public class FileToObjectRoute extends RouteBuilder {
 
     public void configure() throws Exception {
-        from("timer://Footimer?period=2500&delay=5s")
-                .pollEnrich("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true")
+        from(TimerConfiguration.TIMER.getTimerConfig())
+                .pollEnrich(PathEnums.SCANPATH.getPath())
                 .process(exchange -> {
                     File file = exchange.getIn().getBody(File.class);
                     ObjectMapper mapper = new ObjectMapper();

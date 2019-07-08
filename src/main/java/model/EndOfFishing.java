@@ -29,6 +29,12 @@ public class EndOfFishing {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
 
+    public EndOfFishing(LocalDate date) {
+        this.date = date;
+    }
+
+    public EndOfFishing() {}
+
     public LocalDate getDate() {
         return date;
     }
@@ -37,11 +43,13 @@ public class EndOfFishing {
         this.date = date;
     }
 
-    public EndOfFishing(LocalDate date) {
-        this.date = date;
+    public Long getId() {
+        return id;
     }
 
-    public EndOfFishing() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()

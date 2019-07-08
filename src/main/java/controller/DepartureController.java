@@ -1,30 +1,50 @@
 package controller;
 
+import dao.DepartureDAO;
 import model.Departure;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.validation.Valid;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
+@Path("departure")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class DepartureController {
-    @PersistenceContext(name = "prod")
-    EntityManager em;
+    @Inject
+    DepartureDAO departureDAO;
 
+    @POST
+    public Response save(@Valid Departure departure) {
+        departureDAO.create(departure);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("{id}")
+    public JsonObject findById(@PathParam("id") Long id) {
+        Departure departure = departureDAO.findById(id);
+        return departure.toJson();
+    }
+
+    @GET
     public List<Departure> findAll() {
-        return em.createQuery("select d from Departure d").getResultList();
+        JsonArrayBuilder list = Json.createArrayBuilder();
+        List<Departure> all = departureDAO.findAll();
+        return all;
     }
 
-    public void create(Departure departure) {
-        em.persist(departure);
-    }
-
-    public Departure findById(Long id) {
-        return em.find(Departure.class, id);
-    }
-
-    public void remove(Long id) {
-        em.remove(id);
+    @DELETE
+    @Path("/{id}")
+    public void remove(@PathParam("id") Long id) {
+        departureDAO.remove(id);
     }
 }

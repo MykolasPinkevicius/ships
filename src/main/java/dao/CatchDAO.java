@@ -1,0 +1,30 @@
+package dao;
+
+import model.Catch;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+@Stateless
+public class CatchDAO {
+    @PersistenceContext(name = "prod")
+    //TODO padaryti dar vieną lėjerį Entity manageriui.
+    EntityManager em;
+
+    public List<Catch> findAll() {
+        return em.createQuery("select c from Catch c").getResultList();
+    }
+    public void create(Catch aCatch) {
+        em.persist(aCatch);
+    }
+
+    public Catch findById(Long id) {
+        return em.find(Catch.class, id);
+    }
+
+    public void remove(Long id) {
+        em.remove(id);
+    }
+}

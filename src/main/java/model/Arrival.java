@@ -29,6 +29,13 @@ public class Arrival {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate date;
 
+    public Arrival(String port, LocalDate date) {
+        this.port = port;
+        this.date = date;
+    }
+
+    public Arrival() {}
+
     public String getPort() {
         return port;
     }
@@ -45,12 +52,13 @@ public class Arrival {
         this.date = date;
     }
 
-    public Arrival(String port, LocalDate date) {
-        this.port = port;
-        this.date = date;
+    public Long getId() {
+        return id;
     }
 
-    public Arrival() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()

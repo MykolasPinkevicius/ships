@@ -1,4 +1,4 @@
-package controller;
+package dao;
 
 import model.Logbook;
 import strategy.DatabaseSaveStrategy;
@@ -13,8 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Stateless
-public class LogbookDBController {
+public class LogbookDAO {
     @PersistenceContext(name = "prod")
+    //TODO padaryti dar vieną lėjerį Entity manageriui.
     EntityManager em;
 
     private SavingStrategy savingStrategy;

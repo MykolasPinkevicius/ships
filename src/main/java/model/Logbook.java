@@ -38,6 +38,8 @@ public class Logbook {
         this.communicationType = communicationType;
     }
 
+    public Logbook() {};
+
     public String getCommunicationType() {
         return communicationType;
     }
@@ -79,7 +81,13 @@ public class Logbook {
         this.endOfFishing = endOfFishing;
     }
 
-    public Logbook() {};
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()

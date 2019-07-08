@@ -1,29 +1,50 @@
 package controller;
 
+import dao.CatchDAO;
 import model.Catch;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.validation.Valid;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
+@Path("catch")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class CatchController {
-    @PersistenceContext(name = "prod")
-    EntityManager em;
+    @Inject
+    CatchDAO catchDAO;
 
+    @POST
+    public Response save(@Valid Catch aCatch) {
+        catchDAO.create(aCatch);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("{id}")
+    public JsonObject findById(@PathParam("id") Long id) {
+        Catch aCatch = catchDAO.findById(id);
+        return aCatch.toJson();
+    }
+    @GET
     public List<Catch> findAll() {
-        return em.createQuery("select c from Catch c").getResultList();
-    }
-    public void create(Catch aCatch) {
-        em.persist(aCatch);
-    }
-
-    public Catch findById(Long id) {
-        return em.find(Catch.class, id);
+        JsonArrayBuilder list = Json.createArrayBuilder();
+        List<Catch> all = catchDAO.findAll();
+        return all;
     }
 
-    public void remove(Long id) {
-        em.remove(id);
+    @DELETE
+    @Path("/{id}")
+    public void remove(@PathParam("id") Long id) {
+        catchDAO.remove(id);
     }
+
 }

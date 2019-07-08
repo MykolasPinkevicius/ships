@@ -1,30 +1,50 @@
 package controller;
 
+import dao.ArrivalDAO;
 import model.Arrival;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
+import javax.json.*;
+import javax.validation.Valid;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
+@Path("arrival")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class ArrivalController {
-    @PersistenceContext(name = "prod")
-    EntityManager em;
+    @Inject
+    ArrivalDAO arrivalDAO;
 
+    @POST
+    public Response save(@Valid Arrival arrival) {
+        arrivalDAO.create(arrival);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("{id}")
+    public JsonObject findById(@PathParam("id") Long id) {
+        Arrival arrival = arrivalDAO.findById(id);
+        return arrival.toJson();
+    }
+
+    @GET
     public List<Arrival> findAll() {
-        return em.createQuery("select a from Arrival a").getResultList();
+        JsonArrayBuilder list = Json.createArrayBuilder();
+        List<Arrival> all = arrivalDAO.findAll();
+        return all;
     }
 
-    public void create(Arrival arrival) {
-        em.persist(arrival);
+    @DELETE
+    @Path("/{id}")
+    public void remove(@PathParam("id") Long id) {
+        arrivalDAO.remove(id);
     }
 
-    public Arrival findById(Long id) {
-        return em.find(Arrival.class, id);
-    }
 
-    public void remove(Long id) {
-        em.remove(id);
-    }
 }
