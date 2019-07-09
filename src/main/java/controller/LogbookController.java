@@ -51,6 +51,12 @@ public class LogbookController {
         return logbookDAO.findByCatchSpecies(catchSpecies);
     }
 
+    @GET
+    @Path("/search/byArrivalPort/{arrivalPort}")
+    public List<Logbook> findByArrivalPort(@PathParam("arrivalPort") String arrivalPort) {
+        return logbookDAO.findByArrivalPort(arrivalPort);
+    }
+
     @DELETE
     @Path("/{id}")
     public void remove(@PathParam("id") Long id) {

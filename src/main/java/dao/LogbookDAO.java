@@ -34,6 +34,12 @@ public class LogbookDAO {
                 .getResultList();
     }
 
+    public List<Logbook> findByArrivalPort(String arrivalPort) {
+        return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.PORT = ?1", Logbook.class)
+                .setParameter(1,arrivalPort)
+                .getResultList();
+    }
+
     public Response create(Logbook logbook) throws IOException {
 
         SavingStrategy savingStrategy;
