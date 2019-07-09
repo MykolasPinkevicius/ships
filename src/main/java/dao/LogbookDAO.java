@@ -18,17 +18,26 @@ public class LogbookDAO {
     //TODO padaryti dar vieną lėjerį Entity manageriui.
     EntityManager em;
 
-    private SavingStrategy savingStrategy;
-
     public List<Logbook> findAll() {
         return em.createQuery("select l from Logbook l").getResultList();
     }
 
-    public List<Logbook> findBySearch(String search) {
-        return em.createNativeQuery("SELECT * FROM LOGBOOK WHERE LOGBOOK.COMMUNICATIONTYPE = :search").getResultList();
+    public List<Logbook> findByDeparturePort(String departurePort) {
+        return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.PORT = ?1", Logbook.class)
+                .setParameter(1, departurePort)
+                .getResultList();
+    }
+
+    public List<Logbook> findByCatchSpecies(String catchSpecies) {
+        return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join CATCH C on U.ACATCH_ID = C.ID where C.SPECIES = ?1", Logbook.class)
+                .setParameter(1, catchSpecies)
+                .getResultList();
     }
 
     public Response create(Logbook logbook) throws IOException {
+
+        SavingStrategy savingStrategy;
+
         if (logbook.getCommunicationType().equals("offline")) {
             savingStrategy = new FileSaveStrategy();
         } else if(logbook.getCommunicationType().equals("online")) {

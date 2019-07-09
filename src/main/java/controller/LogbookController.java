@@ -19,40 +19,42 @@ import java.util.List;
 @Consumes({MediaType.APPLICATION_JSON})
 public class LogbookController {
     @Inject
-    LogbookDAO logbookController;
+    LogbookDAO logbookDAO;
 
     @POST
     public Response save(@Valid Logbook logbook) throws IOException {
-        logbookController.create(logbook);
+        logbookDAO.create(logbook);
         return Response.ok().build();
     }
 
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {
-        Logbook logbook = logbookController.findById(id);
+        Logbook logbook = logbookDAO.findById(id);
         return logbook.toJson();
     }
 
     @GET
     public List<Logbook> findAll() {
-//        Mocking camel activation class
-//        FileTransfer.save();
-        List<Logbook> all = logbookController.findAll();
-        return all;
+        return logbookDAO.findAll();
     }
 
     @GET
-    @Path("/search/{search}")
-    public List<Logbook> findBySearch(@PathParam("search") String search) {
-        List<Logbook> searched = logbookController.findBySearch(search);
-        return searched;
+    @Path("/search/byDeparture/{departurePort}")
+    public List<Logbook> findByDeparturePort(@PathParam("departurePort") String departurePort) {
+        return logbookDAO.findByDeparturePort(departurePort);
+    }
+
+    @GET
+    @Path("/search/bySpecies/{catchSpecies}")
+    public List<Logbook> findByCatchSpecies(@PathParam("catchSpecies") String catchSpecies) {
+        return logbookDAO.findByCatchSpecies(catchSpecies);
     }
 
     @DELETE
     @Path("/{id}")
     public void remove(@PathParam("id") Long id) {
-        logbookController.remove(id);
+        logbookDAO.remove(id);
     }
 
 }
