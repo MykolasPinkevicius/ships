@@ -1,6 +1,7 @@
 package controller;
 
 import dao.LogbookDAO;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import model.*;
 
 import javax.ejb.Stateless;
@@ -62,6 +63,19 @@ public class LogbookController {
     public List<Logbook> findByArrivalPort(@PathParam("arrivalPort") String arrivalPort) {
         return logbookDAO.findByArrivalPort(arrivalPort);
     }
+
+    @GET
+    @Path("/search/byArrivalPort/{arrivalDate}")
+    public List<Logbook> findByArrivalDate(@PathParam("arrivalDate") String arrivalDate) {
+        return logbookDAO.findByArrivalDate(arrivalDate);
+    }
+
+    @GET
+    @Path("/search/byEndOfFishingDate/{endOfFishingDate}")
+    public List<Logbook> findByEndOfFishingDate(@PathParam("endOfFishingDate") String endOfFishingDate) {
+        return logbookDAO.findByEndOfFishingDate(endOfFishingDate);
+    }
+
 
     @DELETE
     @Path("/{id}")

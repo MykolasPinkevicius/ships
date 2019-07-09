@@ -28,6 +28,12 @@ public class LogbookDAO {
                 .getResultList();
     }
 
+    public List<Logbook> findByDepartureDate(String departureDate) {
+        return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.DATE = ?1", Logbook.class)
+                .setParameter(1, departureDate)
+                .getResultList();
+    }
+
     public List<Logbook> findByCatchSpecies(String catchSpecies) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join CATCH C on U.ACATCH_ID = C.ID where C.SPECIES = ?1", Logbook.class)
                 .setParameter(1, catchSpecies)
@@ -40,9 +46,15 @@ public class LogbookDAO {
                 .getResultList();
     }
 
-    public List<Logbook> findByDepartureDate(String departureDate) {
-        return em.createNativeQuery("SELECT * FROM LOGBOOK", Logbook.class)
-                .setParameter(1, departureDate)
+    public List<Logbook> findByArrivalDate(String arrivalDate) {
+        return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.DATE = ?1", Logbook.class)
+                .setParameter(1,arrivalDate)
+                .getResultList();
+    }
+
+    public List<Logbook> findByEndOfFishingDate(String endOfFishingDate) {
+        return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ENDOFFISHING E on U.ENDOFFISHING_ID = E.ID where E.DATE = ?1", Logbook.class)
+                .setParameter(1,endOfFishingDate)
                 .getResultList();
     }
 
