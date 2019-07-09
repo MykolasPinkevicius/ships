@@ -3,6 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import util.DateStringFormatter;
 import util.LocalDateDeserializer;
 import util.LocalDateSerializer;
 
@@ -26,7 +27,7 @@ public class Departure {
     @NotNull
     private String port;
     @NotNull
-//    @JsonFormat(pattern="dd/MM/yyyy")
+//    @JsonFormat(pattern="yyyy-MM-dd")
 //    @Column(columnDefinition = "DATE")
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonSerialize(using = LocalDateSerializer.class)
@@ -66,7 +67,7 @@ public class Departure {
     public JsonObject toJson() {
         return Json.createObjectBuilder()
                 .add("port", this.port)
-                .add("date", this.date.toString())
+                .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();
     }
 }

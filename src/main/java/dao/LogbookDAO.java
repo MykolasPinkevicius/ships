@@ -40,6 +40,12 @@ public class LogbookDAO {
                 .getResultList();
     }
 
+    public List<Logbook> findByDepartureDate(String departureDate) {
+        return em.createNativeQuery("SELECT * FROM LOGBOOK", Logbook.class)
+                .setParameter(1, departureDate)
+                .getResultList();
+    }
+
     public Response create(Logbook logbook) throws IOException {
 
         SavingStrategy savingStrategy;

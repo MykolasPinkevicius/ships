@@ -40,9 +40,15 @@ public class LogbookController {
     }
 
     @GET
-    @Path("/search/byDeparture/{departurePort}")
+    @Path("/search/byDeparturePort/{departurePort}")
     public List<Logbook> findByDeparturePort(@PathParam("departurePort") String departurePort) {
         return logbookDAO.findByDeparturePort(departurePort);
+    }
+
+    @GET
+    @Path("/search/byDepartureDate/{departureDate}")
+    public List<Logbook> findByDepartureDate(@PathParam("departureDate") String departureDate) {
+        return logbookDAO.findByDepartureDate(departureDate);
     }
 
     @GET

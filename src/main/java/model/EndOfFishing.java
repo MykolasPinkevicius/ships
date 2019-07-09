@@ -3,6 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import util.DateStringFormatter;
 import util.LocalDateDeserializer;
 import util.LocalDateSerializer;
 
@@ -25,7 +26,7 @@ public class EndOfFishing {
     @XmlTransient
     private Long id;
     @NotNull
-//    @JsonFormat(pattern="dd/MM/yyyy")
+//    @JsonFormat(pattern="yyyy-MM-dd")
 //    @Column(columnDefinition = "DATE")
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonSerialize(using = LocalDateSerializer.class)
@@ -56,7 +57,7 @@ public class EndOfFishing {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("date", this.date.toString())
+                .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();
     }
 }
