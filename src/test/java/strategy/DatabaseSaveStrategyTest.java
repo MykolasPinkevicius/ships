@@ -30,7 +30,6 @@ public class DatabaseSaveStrategyTest {
 
     @Test
     void createLogbookTestResponse() {
-        databaseSaveStrategy = new DatabaseSaveStrategy(entityManagerMock);
         Response response = databaseSaveStrategy.create(log);
         Assertions.assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
     }

@@ -32,7 +32,6 @@ class LogbookDAOTest {
 
     @Test
     void create() {
-        logbookDAO = new LogbookDAO(entityManagerMock);
         Response response = null;
         try {
             response = logbookDAO.create(log);
