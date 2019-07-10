@@ -17,7 +17,12 @@ public class DatabaseSaveStrategy implements SavingStrategy {
 
     @Override
     public Response create(Logbook logbook) {
-        em.persist(logbook);
+        try {
+            em.persist(logbook);
+        } catch(Exception e){
+            e.printStackTrace();
+            return Response.status(500).build();
+        }
         return Response.status(Response.Status.CREATED).entity("Logbook saved in database").build();
     }
 }

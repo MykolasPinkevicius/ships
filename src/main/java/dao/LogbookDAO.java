@@ -17,6 +17,10 @@ public class LogbookDAO {
     @PersistenceContext(name = "prod")
     private EntityManager em;
 
+    public LogbookDAO(EntityManager entityManager) {
+        this.em = entityManager;
+    }
+
     public List<Logbook> findAll() {
         return em.createQuery("select l from Logbook l").getResultList();
     }
