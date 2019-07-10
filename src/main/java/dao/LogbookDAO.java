@@ -15,7 +15,7 @@ import java.util.List;
 @Stateless
 public class LogbookDAO {
     @PersistenceContext(name = "prod")
-    EntityManager em;
+    private EntityManager em;
 
     public List<Logbook> findAll() {
         return em.createQuery("select l from Logbook l").getResultList();

@@ -12,7 +12,6 @@ public class DateStringFormatterTest {
     void dateStringFormatter() {
 
         Date date = new GregorianCalendar(2019,8-1,9).getTime();
-        System.out.println(date);
         Assertions.assertEquals("2019-08-09", DateStringFormatter.dateToStringWithFormat(date));
     }
 
