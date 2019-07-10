@@ -14,24 +14,25 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatabaseSaveStrategyTest {
-        @InjectMocks
-        DatabaseSaveStrategy databaseSaveStrategy;
+    @InjectMocks
+    DatabaseSaveStrategy databaseSaveStrategy;
 
-        @Mock
-        EntityManager entityManagerMock;
+    @Mock
+    EntityManager entityManagerMock;
 
-        @BeforeEach
-                void setUp() {
-                MockitoAnnotations.initMocks(this);
-        }
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-        Date dateForAll = new GregorianCalendar(2019,8-1,9).getTime();
-        Logbook log = new Logbook(new Departure("portas",dateForAll), new Catch("Salmon", 52), new Arrival("portas",dateForAll), new EndOfFishing(dateForAll), "online");
-        @Test
-        void createLogbookTestResponse() {
-                databaseSaveStrategy = new DatabaseSaveStrategy(entityManagerMock);
+    Date dateForAll = new GregorianCalendar(2019, 8 - 1, 9).getTime();
+    Logbook log = new Logbook(new Departure("portas", dateForAll), new Catch("Salmon", 52), new Arrival("portas", dateForAll), new EndOfFishing(dateForAll), "online");
+
+    @Test
+    void createLogbookTestResponse() {
+        databaseSaveStrategy = new DatabaseSaveStrategy(entityManagerMock);
         Response response = databaseSaveStrategy.create(log);
-        Assertions.assertEquals(Response.Status.CREATED.getStatusCode(),response.getStatus());
+        Assertions.assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
     }
 
 
