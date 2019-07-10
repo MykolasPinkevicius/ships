@@ -15,7 +15,6 @@ import java.util.List;
 @Stateless
 public class LogbookDAO {
     @PersistenceContext(name = "prod")
-    //TODO padaryti dar vieną lėjerį Entity manageriui.
     EntityManager em;
 
     public List<Logbook> findAll() {

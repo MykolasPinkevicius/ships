@@ -11,7 +11,6 @@ import java.util.List;
 @Stateless
 public class EndOfFishingDAO {
     @PersistenceContext(name = "prod")
-    //TODO padaryti dar vieną lėjerį Entity manageriui.
     EntityManager em;
 
     public List<EndOfFishing> findAll() {
