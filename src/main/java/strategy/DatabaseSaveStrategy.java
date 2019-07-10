@@ -8,8 +8,8 @@ import javax.ws.rs.core.Response;
 
 public class DatabaseSaveStrategy implements SavingStrategy {
 
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceContext(name = "prod")
+    private EntityManager em;
 
     public DatabaseSaveStrategy(EntityManager entityManager) {
         this.em = entityManager;
