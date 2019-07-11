@@ -1,8 +1,7 @@
 package controller;
 
 import dao.LogbookDAO;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import model.*;
+import model.Logbook;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

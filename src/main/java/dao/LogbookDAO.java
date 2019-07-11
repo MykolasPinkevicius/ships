@@ -21,6 +21,9 @@ public class LogbookDAO {
         this.em = entityManager;
     }
 
+    public LogbookDAO() {
+    }
+
     public List<Logbook> findAll() {
         return em.createQuery("select l from Logbook l").getResultList();
     }
