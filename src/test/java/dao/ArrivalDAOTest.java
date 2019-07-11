@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,7 +25,7 @@ class ArrivalDAOTest {
     @Mock
     EntityManager entityManager;
 
-    Date dateForAll = new GregorianCalendar(2019, 8 - 1, 9).getTime();
+    Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
     Arrival arrival = new Arrival("Portas", dateForAll);
 
     @BeforeEach

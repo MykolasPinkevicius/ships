@@ -1,9 +1,11 @@
 package strategy;
 
 
-import enums.PathEnums;
+import configuration.ConfigurationDAO;
 import model.Logbook;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Stateless
 public class FileSaveStrategy implements SavingStrategy {
+
+    @Inject
+    ConfigurationDAO configurationDAO;
 
     public Response create(Logbook logbook) throws IOException {
         LocalDate ld = LocalDateTime.now().toLocalDate();
@@ -31,6 +37,7 @@ public class FileSaveStrategy implements SavingStrategy {
     }
 
     private String getFilePathString(LocalDate ld, UUID random) {
-        return PathEnums.INBOXPATH.getPath() + ld + random.toString() + ".json";
+//        TODO fix configurationDao findbykey(String key) inboxPath
+        return configurationDAO.findByKey("inboxPath").getValue() + ld + random.toString() + ".json";
     }
 }

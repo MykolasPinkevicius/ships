@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -25,7 +26,7 @@ public class DatabaseSaveStrategyTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    Date dateForAll = new GregorianCalendar(2019, 8 - 1, 9).getTime();
+    Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
     Logbook log = new Logbook(new Departure("portas", dateForAll), new Catch("Salmon", 52), new Arrival("portas", dateForAll), new EndOfFishing(dateForAll), "online");
 
     @Test
