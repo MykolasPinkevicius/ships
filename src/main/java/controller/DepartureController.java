@@ -5,8 +5,6 @@ import model.Departure;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -37,9 +35,7 @@ public class DepartureController {
 
     @GET
     public List<Departure> findAll() {
-        JsonArrayBuilder list = Json.createArrayBuilder();
-        List<Departure> all = departureDAO.findAll();
-        return all;
+        return departureDAO.findAll();
     }
 
     @DELETE

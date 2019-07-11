@@ -1,6 +1,6 @@
 package dao;
 
-import model.EndOfFishing;
+import model.Departure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,16 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-class EndOfFishingDAOTest {
+class DepartureDAOTest {
 
     @InjectMocks
-    EndOfFishingDAO endOfFishingDAO;
+    DepartureDAO departureDAO;
 
     @Mock
     EntityManager entityManager;
 
     Date dateForAll = new GregorianCalendar(2019, 8 - 1, 9).getTime();
-    EndOfFishing endOfFishing = new EndOfFishing(dateForAll);
+    Departure departure = new Departure("Portas", dateForAll);
 
     @BeforeEach
     void setUp() {
@@ -36,7 +36,7 @@ class EndOfFishingDAOTest {
     void create() {
         Response response = null;
         try {
-            response = endOfFishingDAO.create(endOfFishing);
+            response = departureDAO.create(departure);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,8 +45,8 @@ class EndOfFishingDAOTest {
 
     @Test
     void remove() {
-        Long endOfFishingId = 1L;
-        endOfFishingDAO.remove(endOfFishingId);
-        verify(entityManager, times(1)).remove(endOfFishingId);
+        Long departureId = 1L;
+        departureDAO.remove(departureId);
+        verify(entityManager, times(1)).remove(departureId);
     }
 }
