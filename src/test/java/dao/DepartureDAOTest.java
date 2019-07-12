@@ -29,12 +29,12 @@ class DepartureDAOTest {
     Departure departure = new Departure("Portas", dateForAll);
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void create() {
+    public void create() {
         Response response = null;
         try {
             response = departureDAO.create(departure);
@@ -45,7 +45,7 @@ class DepartureDAOTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         Long departureId = 1L;
         departureDAO.remove(departureId);
         verify(entityManager, times(1)).remove(departureId);

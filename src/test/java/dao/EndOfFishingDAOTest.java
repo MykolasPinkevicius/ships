@@ -29,12 +29,12 @@ class EndOfFishingDAOTest {
     EndOfFishing endOfFishing = new EndOfFishing(dateForAll);
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void create() {
+    public void create() {
         Response response = null;
         try {
             response = endOfFishingDAO.create(endOfFishing);
@@ -45,7 +45,7 @@ class EndOfFishingDAOTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         Long endOfFishingId = 1L;
         endOfFishingDAO.remove(endOfFishingId);
         verify(entityManager, times(1)).remove(endOfFishingId);

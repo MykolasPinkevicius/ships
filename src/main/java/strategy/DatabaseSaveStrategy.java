@@ -1,11 +1,15 @@
 package strategy;
 
 import model.Logbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public class DatabaseSaveStrategy implements SavingStrategy {
+
+    Logger logger = LoggerFactory.getLogger(DatabaseSaveStrategy.class);
 
     @PersistenceContext(name = "prod")
     private EntityManager em;
@@ -18,8 +22,9 @@ public class DatabaseSaveStrategy implements SavingStrategy {
     public void create(Logbook logbook) {
         try {
             em.persist(logbook);
+            logger.info("Logger {} was saved to database", logger);
         } catch(Exception e){
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
     }
 }

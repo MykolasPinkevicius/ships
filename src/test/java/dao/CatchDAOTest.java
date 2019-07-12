@@ -24,12 +24,12 @@ class CatchDAOTest {
     Catch aCatch = new Catch("Salomonas", 52D);
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void create() {
+    public void create() {
         Response response = null;
         try {
             response = catchDAO.create(aCatch);
@@ -40,7 +40,7 @@ class CatchDAOTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         Long catchId = 1L;
         catchDAO.remove(catchId);
         verify(entityManager, times(1)).remove(catchId);

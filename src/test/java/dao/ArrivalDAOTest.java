@@ -29,12 +29,12 @@ class ArrivalDAOTest {
     Arrival arrival = new Arrival("Portas", dateForAll);
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void create() {
+    public void create() {
         Response response = null;
         try {
             response = arrivalDAO.create(arrival);
@@ -45,7 +45,7 @@ class ArrivalDAOTest {
     }
 
     @Test
-    void remove() {
+    public void remove() {
         Long arrivalId = 1L;
         arrivalDAO.remove(arrivalId);
         verify(entityManager, times(1)).remove(arrivalId);
