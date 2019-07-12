@@ -99,5 +99,15 @@ public class Logbook {
                         .build();
     }
 
-
+    @Override
+    public String toString() {
+        return "Logbook{" +
+                "id=" + id +
+                ", departure=" + departure +
+                ", aCatch=" + aCatch +
+                ", arrival=" + arrival +
+                ", endOfFishing=" + endOfFishing +
+                ", communicationType='" + communicationType + '\'' +
+                '}';
+    }
 }

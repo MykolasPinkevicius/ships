@@ -51,4 +51,12 @@ public class EndOfFishing {
                 .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();
     }
+
+    @Override
+    public String toString() {
+        return "EndOfFishing{" +
+                "id=" + id +
+                ", date=" + date +
+                '}';
+    }
 }

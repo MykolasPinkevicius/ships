@@ -2,7 +2,10 @@ package strategy;
 
 
 import configuration.ConfigurationDAO;
+import dao.LogbookDAO;
 import model.Logbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,6 +19,8 @@ import java.util.UUID;
 public class FileSaveStrategy implements SavingStrategy {
 
     private String fileSavingPath;
+
+    Logger logger = LoggerFactory.getLogger(LogbookDAO.class);
 
     public FileSaveStrategy(String fileSavingPath) {
         this.fileSavingPath = fileSavingPath;
@@ -37,6 +42,7 @@ public class FileSaveStrategy implements SavingStrategy {
         try {
             fileWriter = new FileWriter(filePath);
             fileWriter.write(logbook.toJson().toString());
+            logger.info("logbook {} was created on file", logbook);
             fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();

@@ -63,5 +63,12 @@ public class Arrival {
                 .build();
     }
 
-
+    @Override
+    public String toString() {
+        return "Arrival{" +
+                "id=" + id +
+                ", port='" + port + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

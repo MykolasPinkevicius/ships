@@ -59,4 +59,13 @@ public class Catch {
        .add("weight", this.weight)
        .build();
     }
+
+    @Override
+    public String toString() {
+        return "Catch{" +
+                "id=" + id +
+                ", species='" + species + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }
