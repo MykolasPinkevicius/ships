@@ -81,8 +81,8 @@ public class LogbookDAO {
         } else {
             return Response.serverError().build();
         }
-
-        return savingStrategy.create(logbook);
+        savingStrategy.create(logbook);
+        return Response.status(201).build();
     }
 
     public Logbook findById(Long id) {

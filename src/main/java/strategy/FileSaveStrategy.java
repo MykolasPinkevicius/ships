@@ -6,7 +6,6 @@ import model.Logbook;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -30,7 +29,7 @@ public class FileSaveStrategy implements SavingStrategy {
     @Inject
     ConfigurationDAO configurationDAO;
 
-    public Response create(Logbook logbook) throws IOException {
+    public void create(Logbook logbook) throws IOException {
         LocalDate ld = LocalDateTime.now().toLocalDate();
         UUID random = UUID.randomUUID();
         String filePath = getFilePathString(ld, random);
@@ -44,7 +43,6 @@ public class FileSaveStrategy implements SavingStrategy {
         } finally {
             fileWriter.close();
         }
-        return Response.ok("Logbook saved to file").build();
     }
 
     private String getFilePathString(LocalDate ld, UUID random) {

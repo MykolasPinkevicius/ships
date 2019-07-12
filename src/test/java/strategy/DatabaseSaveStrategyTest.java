@@ -1,7 +1,6 @@
 package strategy;
 
 import model.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,10 +8,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
-import javax.ws.rs.core.Response;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class DatabaseSaveStrategyTest {
     @InjectMocks
@@ -31,8 +32,8 @@ public class DatabaseSaveStrategyTest {
 
     @Test
     void createLogbookTestResponse() {
-        Response response = databaseSaveStrategy.create(log);
-        Assertions.assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        databaseSaveStrategy.create(log);
+        verify(entityManagerMock, times(1)).persist(log);
     }
 
 
