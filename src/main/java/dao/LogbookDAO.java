@@ -1,11 +1,13 @@
 package dao;
 
+import configuration.ConfigurationDAO;
 import model.Logbook;
 import strategy.DatabaseSaveStrategy;
 import strategy.FileSaveStrategy;
 import strategy.SavingStrategy;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.core.Response;
@@ -14,6 +16,9 @@ import java.util.List;
 
 @Stateless
 public class LogbookDAO {
+    @Inject
+    ConfigurationDAO configurationDAO;
+
     @PersistenceContext(name = "prod")
     private EntityManager em;
 
@@ -69,7 +74,8 @@ public class LogbookDAO {
         SavingStrategy savingStrategy;
 
         if (logbook.getCommunicationType().equals("offline")) {
-            savingStrategy = new FileSaveStrategy();
+            String filePath = configurationDAO.findByKey("inboxPath").getValue();
+            savingStrategy = new FileSaveStrategy(filePath);
         } else if(logbook.getCommunicationType().equals("online")) {
             savingStrategy = new DatabaseSaveStrategy(em);
         } else {

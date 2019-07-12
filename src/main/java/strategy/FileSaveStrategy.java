@@ -16,6 +16,17 @@ import java.util.UUID;
 @Stateless
 public class FileSaveStrategy implements SavingStrategy {
 
+    private String fileSavingPath;
+
+    public FileSaveStrategy(String fileSavingPath) {
+        this.fileSavingPath = fileSavingPath;
+    }
+
+    public FileSaveStrategy() {
+    }
+
+
+
     @Inject
     ConfigurationDAO configurationDAO;
 
@@ -37,7 +48,6 @@ public class FileSaveStrategy implements SavingStrategy {
     }
 
     private String getFilePathString(LocalDate ld, UUID random) {
-//        TODO fix configurationDao findbykey(String key) inboxPath
-        return configurationDAO.findByKey("inboxPath").getValue() + ld + random.toString() + ".json";
+        return fileSavingPath + ld + random.toString() + ".json";
     }
 }
