@@ -18,11 +18,7 @@ public class ConfigurationDAO {
     }
 
     public void create(Configuration configuration) {
-        try {
             em.persist(configuration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Configuration findByKey(String key) {

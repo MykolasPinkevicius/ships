@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -69,20 +68,16 @@ public class LogbookDAO {
                 .getResultList();
     }
 
-    public Response create(Logbook logbook) throws IOException {
+    public void create(Logbook logbook) throws IOException {
+        getStratrgy(logbook).create(logbook);
+    }
 
-        SavingStrategy savingStrategy;
-
+    private SavingStrategy getStratrgy(Logbook logbook) {
         if (logbook.getCommunicationType().equals("offline")) {
             String filePath = configurationDAO.findByKey("inboxPath").getValue();
-            savingStrategy = new FileSaveStrategy(filePath);
-        } else if(logbook.getCommunicationType().equals("online")) {
-            savingStrategy = new DatabaseSaveStrategy(em);
-        } else {
-            return Response.serverError().build();
+            return new FileSaveStrategy(filePath);
         }
-        savingStrategy.create(logbook);
-        return Response.status(201).build();
+        return new DatabaseSaveStrategy(em);
     }
 
     public Logbook findById(Long id) {
@@ -92,7 +87,7 @@ public class LogbookDAO {
     public void remove(Long id) {
         em.remove(id);
     }
-
+//    TODO delete this
     public void update(Long id, Logbook logbook) {
         Logbook updatedLogbook = em.find(Logbook.class, id);
         updatedLogbook.setaCatch(logbook.getaCatch());
