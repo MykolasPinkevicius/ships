@@ -11,7 +11,7 @@ import java.io.File;
 
 public class FileToObjectRoute extends RouteBuilder {
 
-    public void configure() throws Exception {
+    public void configure() {
         from(TimerConfiguration.TIMER.getTimerConfig())
                 .pollEnrich(PathEnums.SCANPATH.getPath())
                 .process(exchange -> {
