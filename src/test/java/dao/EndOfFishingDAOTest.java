@@ -20,17 +20,19 @@ import static org.mockito.Mockito.verify;
 class EndOfFishingDAOTest {
 
     @InjectMocks
-    EndOfFishingDAO endOfFishingDAO;
+    private EndOfFishingDAO endOfFishingDAO;
 
     @Mock
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
-    Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
-    EndOfFishing endOfFishing = new EndOfFishing(dateForAll);
+    private Date dateForAll;
+    private EndOfFishing endOfFishing;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        dateForAll= new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
+        endOfFishing = new EndOfFishing(dateForAll);
     }
 
     @Test

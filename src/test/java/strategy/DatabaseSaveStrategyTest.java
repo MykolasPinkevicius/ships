@@ -17,23 +17,29 @@ import static org.mockito.Mockito.verify;
 
 public class DatabaseSaveStrategyTest {
     @InjectMocks
-    DatabaseSaveStrategy databaseSaveStrategy;
+    private DatabaseSaveStrategy databaseSaveStrategy;
+
+    private Logbook logbook;
 
     @Mock
-    EntityManager entityManagerMock;
+    private EntityManager entityManagerMock;
 
     @BeforeEach
     void setUp() {
+        Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
+        logbook = new Logbook(
+                new Departure("portas", dateForAll),
+                new Catch("Salmon", 52),
+                new Arrival("portas", dateForAll), new EndOfFishing(dateForAll), "online");
         MockitoAnnotations.initMocks(this);
     }
 
-    Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
-    Logbook log = new Logbook(new Departure("portas", dateForAll), new Catch("Salmon", 52), new Arrival("portas", dateForAll), new EndOfFishing(dateForAll), "online");
+
 
     @Test
     void createLogbookTestResponse() {
-        databaseSaveStrategy.create(log);
-        verify(entityManagerMock, times(1)).persist(log);
+        databaseSaveStrategy.create(logbook);
+        verify(entityManagerMock, times(1)).persist(logbook);
     }
 
 

@@ -20,17 +20,19 @@ import static org.mockito.Mockito.verify;
 class DepartureDAOTest {
 
     @InjectMocks
-    DepartureDAO departureDAO;
+    private DepartureDAO departureDAO;
 
     @Mock
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
-    Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
-    Departure departure = new Departure("Portas", dateForAll);
+    private Date dateForAll;
+    private Departure departure;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
+        departure = new Departure("Portas", dateForAll);
     }
 
     @Test

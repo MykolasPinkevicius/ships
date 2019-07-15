@@ -16,16 +16,17 @@ import static org.mockito.Mockito.verify;
 
 class CatchDAOTest {
     @InjectMocks
-    CatchDAO catchDAO;
+    private CatchDAO catchDAO;
 
     @Mock
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
-    Catch aCatch = new Catch("Salomonas", 52D);
+    private Catch aCatch;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        aCatch = new Catch("Salomonas", 52D);
     }
 
     @Test

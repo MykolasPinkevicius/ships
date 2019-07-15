@@ -18,27 +18,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class LogbookDAOTest {
+
+
+
     @InjectMocks
-    LogbookDAO logbookDAO;
+    private LogbookDAO logbookDAO;
 
     @Mock
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     private TypedQuery<Logbook> typedQuery;
-    private Date dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
-    private Logbook log = new Logbook(new Departure("portas", dateForAll), new Catch("Salmon", 52), new Arrival("portas", dateForAll), new EndOfFishing(dateForAll), "online");
-    private List<Logbook> logList = Arrays.asList(log);
+    private Date dateForAll;
+    private Logbook logger;
+    private List<Logbook> logList;
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        dateForAll = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
+        logger = new Logbook(
+                new Departure("portas", dateForAll),
+                new Catch("Salmon", 52),
+                new Arrival("portas", dateForAll),
+                new EndOfFishing(dateForAll), "online");
         typedQuery = Mockito.mock(TypedQuery.class);
+        logList = Arrays.asList(logger);
     }
 
     @Test
     public void create() {
         Response response = null;
         try {
-            response = logbookDAO.create(log);
+            response = logbookDAO.create(logger);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +69,7 @@ class LogbookDAOTest {
     public void findByArrivalDateTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByArrivalDate("1999-03-15");
 
@@ -69,7 +79,7 @@ class LogbookDAOTest {
     public void findByArrivalPortTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByArrivalPort("Portas");
 
@@ -79,7 +89,7 @@ class LogbookDAOTest {
     public void findByCatchSpeciesTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByCatchSpecies("Salmon");
 
@@ -89,7 +99,7 @@ class LogbookDAOTest {
     public void findByDeparturePort() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByDeparturePort("Portas");
 
@@ -99,7 +109,7 @@ class LogbookDAOTest {
     public void findByDepartureDate() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByDepartureDate("1999-05-13");
 
@@ -109,7 +119,7 @@ class LogbookDAOTest {
     public void findByEndOfFishingDateTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.getResultList()).thenReturn(Arrays.asList(log));
+        when(typedQuery.getResultList()).thenReturn(Arrays.asList(logger));
 
         List<Logbook> list = logbookDAO.findByDepartureDate("2222-11-13");
 

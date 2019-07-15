@@ -17,17 +17,18 @@ import static org.mockito.Mockito.*;
 class ConfigurationDAOTest {
 
     @InjectMocks
-    ConfigurationDAO configurationDAO;
+    private ConfigurationDAO configurationDAO;
 
     @Mock
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
-    Configuration configuration = new Configuration("inboxPath", "C:/Dev/wildfly-9.0.2.Final/bin/Savedfiles/");
+    private Configuration configuration;
 
     private TypedQuery<Configuration> mockedQuerry;
 
     @BeforeEach
     void setUp() {
+        configuration = new Configuration("inboxPath", "C:/Dev/wildfly-9.0.2.Final/bin/Savedfiles/");
         MockitoAnnotations.initMocks(this);
         mockedQuerry = Mockito.mock(TypedQuery.class);
 
