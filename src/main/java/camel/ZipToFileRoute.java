@@ -11,7 +11,6 @@ public class ZipToFileRoute extends RouteBuilder {
         from(TimerConfiguration.TIMER.getTimerConfig())
                 .pollEnrich(PathEnums.ZIPSCANPATH.getPath())
                 .unmarshal().zip()
-                .process(
-                );
+        .to(PathEnums.INBOXPATH.getPath());
     }
 }

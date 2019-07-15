@@ -19,6 +19,7 @@ public class FileTransfer {
         try {
             camelContext.start();
             camelContext.addRoutes(new FileToObjectRoute());
+            camelContext.addRoutes(new ZipToFileRoute());
         } catch (Exception e) {
             e.printStackTrace();
         }
