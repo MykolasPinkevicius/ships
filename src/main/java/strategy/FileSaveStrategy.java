@@ -45,7 +45,7 @@ public class FileSaveStrategy implements SavingStrategy {
             logger.info("logbook {} was created on file", logbook);
             fileWriter.flush();
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         } finally {
             fileWriter.close();
         }

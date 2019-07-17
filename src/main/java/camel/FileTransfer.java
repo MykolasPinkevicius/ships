@@ -21,6 +21,7 @@ public class FileTransfer {
             camelContext.setStreamCaching(true);
             camelContext.addRoutes(new FileToObjectRoute());
             camelContext.addRoutes(new ZipToFileRoute());
+            camelContext.addRoutes(new CSVToObjectRoute());
         } catch (Exception e) {
             e.printStackTrace();
         }

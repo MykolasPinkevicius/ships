@@ -10,8 +10,6 @@ public class ZipToFileRoute extends RouteBuilder {
     @Override
     public void configure(){
         from(PathEnums.ZIPSCANPATH.getPath())
-//        from(TimerConfiguration.TIMER.getTimerConfig())
-//                .pollEnrich(PathEnums.ZIPSCANPATH.getPath())
                 .split(new ZipSplitter())
                 .streaming().convertBodyTo(String.class)
         .to(PathEnums.ZIPINBOXPATH.getPath());
