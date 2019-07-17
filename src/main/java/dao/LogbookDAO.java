@@ -69,10 +69,10 @@ public class LogbookDAO {
     }
 
     public void create(Logbook logbook) throws IOException {
-        getStratrgy(logbook).create(logbook);
+        getStrategy(logbook).create(logbook);
     }
 
-    private SavingStrategy getStratrgy(Logbook logbook) {
+    private SavingStrategy getStrategy(Logbook logbook) {
         if (logbook.getCommunicationType().equals("offline")) {
             String filePath = configurationDAO.findByKey("inboxPath").getValue();
             return new FileSaveStrategy(filePath);

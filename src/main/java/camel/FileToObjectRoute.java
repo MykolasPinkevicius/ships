@@ -24,6 +24,5 @@ public class FileToObjectRoute extends RouteBuilder {
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
                 .to("http://localhost:8080/project/app/logbooks/");
-
     }
 }

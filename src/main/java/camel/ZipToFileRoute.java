@@ -11,7 +11,8 @@ public class ZipToFileRoute extends RouteBuilder {
     public void configure(){
         from(PathEnums.ZIPSCANPATH.getPath())
                 .split(new ZipSplitter())
-                .streaming().convertBodyTo(String.class)
+                .streaming()
+                .choice()
         .to(PathEnums.ZIPINBOXPATH.getPath());
     }
 }
