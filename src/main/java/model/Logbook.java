@@ -111,5 +111,50 @@ public class Logbook {
                 '}';
     }
 
+    public static class Builder {
+        private String id;
+        private Arrival arrival;
+        private Departure departure;
+        private EndOfFishing endOfFishing;
+        private Catch aCatch;
+        private String communicationType;
+
+        public Builder withID(String id) {
+            this.id = id;
+            return this;
+        }
+        public Builder withArrival(Arrival arrival) {
+            this.arrival = arrival;
+            return this;
+        }
+        public Builder withDeparture(Departure departure) {
+            this.departure = departure;
+            return this;
+        }
+        public Builder withEndOfFishing(EndOfFishing endOfFishing) {
+            this.endOfFishing = endOfFishing;
+            return this;
+        }
+        public Builder withCatch(Catch aCatch) {
+            this.aCatch = aCatch;
+            return this;
+        }
+        public Builder withCommunicationType(String communicationType) {
+            this.communicationType = communicationType;
+            return this;
+        }
+
+        public Logbook build() {
+            Logbook logbook = new Logbook();
+            logbook.arrival = this.arrival;
+            logbook.departure = this.departure;
+            logbook.endOfFishing = this.endOfFishing;
+            logbook.aCatch = this.aCatch;
+            logbook.communicationType = this.communicationType;
+            logbook.setId(Long.valueOf(this.id));
+            return logbook;
+        }
+    }
+
 
 }

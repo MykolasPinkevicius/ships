@@ -11,8 +11,8 @@ import javax.ejb.Startup;
 @Singleton
 @Startup
 public class FileTransfer {
-
     static CamelContext camelContext = new DefaultCamelContext();
+
 
     @PostConstruct
     public static void save() {
@@ -20,8 +20,7 @@ public class FileTransfer {
             camelContext.start();
             camelContext.setStreamCaching(true);
             camelContext.addRoutes(new FileToObjectRoute());
-            camelContext.addRoutes(new ZipToFileRoute());
-            camelContext.addRoutes(new CSVToObjectRoute());
+            camelContext.addRoutes(new CSVReader());
         } catch (Exception e) {
             e.printStackTrace();
         }

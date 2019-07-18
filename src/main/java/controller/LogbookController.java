@@ -19,7 +19,7 @@ import java.util.List;
 @Consumes({MediaType.APPLICATION_JSON})
 public class LogbookController {
     @Inject
-    LogbookDAO logbookDAO;
+    private LogbookDAO logbookDAO;
 
     @POST
     public Response save(@Valid Logbook logbook) throws IOException {

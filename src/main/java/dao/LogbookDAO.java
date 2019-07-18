@@ -72,6 +72,16 @@ public class LogbookDAO {
         getStrategy(logbook).create(logbook);
     }
 
+    public void createAll(List<Logbook> logbookList) {
+        for (Logbook logbook: logbookList) {
+            try {
+                getStrategy(logbook).create(logbook);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private SavingStrategy getStrategy(Logbook logbook) {
         if (logbook.getCommunicationType().equals("offline")) {
             String filePath = configurationDAO.findByKey("inboxPath").getValue();
