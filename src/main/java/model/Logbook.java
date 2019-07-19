@@ -1,36 +1,48 @@
 package model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@XmlRootElement
+//@XmlRootElement
 public class Logbook {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @XmlTransient
     private Long id;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private Departure departure;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private Catch aCatch;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private Arrival arrival;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE}, orphanRemoval = true)
     private EndOfFishing endOfFishing;
     @NotNull
     private String communicationType;
 
     public Logbook(Departure departure, Catch aCatch, Arrival arrival, EndOfFishing endOfFishing, String communicationType) {
+        this.departure = departure;
+        this.aCatch = aCatch;
+        this.arrival = arrival;
+        this.endOfFishing = endOfFishing;
+        this.communicationType = communicationType;
+    }
+
+    public Logbook(Long id, Departure departure, Catch aCatch, Arrival arrival, EndOfFishing endOfFishing, String communicationType) {
+        this.id = id;
         this.departure = departure;
         this.aCatch = aCatch;
         this.arrival = arrival;
@@ -91,6 +103,7 @@ public class Logbook {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
+                        .add("id", this.id)
                         .add("departure", departure.toJson())
                         .add("aCatch", aCatch.toJson())
                         .add("arrival", arrival.toJson())
@@ -101,14 +114,14 @@ public class Logbook {
 
     @Override
     public String toString() {
-        return "Logbook{" +
-                "id=" + id +
-                ", departure=" + departure +
-                ", aCatch=" + aCatch +
-                ", arrival=" + arrival +
-                ", endOfFishing=" + endOfFishing +
-                ", communicationType='" + communicationType + '\'' +
-                '}';
+        ObjectMapper mapperObj = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapperObj.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
     public static class Builder {

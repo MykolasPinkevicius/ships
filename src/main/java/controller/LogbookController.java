@@ -27,6 +27,14 @@ public class LogbookController {
         return Response.ok().build();
     }
 
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("/allLogbooks")
+    public Response saveAll(@Valid List<Logbook> logbookList) {
+            logbookDAO.createAll(logbookList);
+        return Response.ok().build();
+    }
+
     @GET
     @Path("{id}")
     public JsonObject findById(@PathParam("id") Long id) {

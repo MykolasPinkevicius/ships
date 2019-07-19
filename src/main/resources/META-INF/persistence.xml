@@ -12,7 +12,7 @@
             <property name="hibernate.id.new_generator_mappings" value="true"/>
             <property name="show_sql" value="true"/>
             <property name="hibernate.max_fetch_depth" value="3" />
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 <!--            Enable to update db not drop-->
 <!--            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

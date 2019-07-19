@@ -3,11 +3,13 @@ package enums;
 public enum PathEnums {
 
     SCANPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\logbook?noop=false&delete=true"),
-    ZIPSCANPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\zip?noop=false&delete=true&delay=5s"),
-//    Currently using database configuration table, left it for different app configuration
-    ZIPINBOXPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\zip"),
+    ZIPSCANPATH("file:C:\\Dev\\zip?noop=false&delete=true&delay=5s&initialDelay=5s"),
+    //    Currently using database configuration table, left it for different app configuration
+    ZIPPATH("C:\\Dev\\wildfly-9.0.2.Final\\bin\\zip\\"),
+    ZIPINBOXPATH("file:C:\\Dev\\Savedfiles\\zip"),
+    ZIPINBOXSCANPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\zip?noop=false&delete=true&delay=5s"),
     INBOXPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles"),
-    CSVZIPPATH("C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\zip\\");
+    CSVZIPPATH("C:\\Dev\\Savedfiles\\zip\\");
 
     private String path;
 

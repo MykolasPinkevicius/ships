@@ -1,23 +1,24 @@
 package model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import util.DateStringFormatter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class EndOfFishing {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @XmlTransient
     private Long id;
     @NotNull
 
@@ -26,6 +27,11 @@ public class EndOfFishing {
 
     public EndOfFishing(Date date) {
         this.date = date;
+    }
+
+    public EndOfFishing(Long id, Date date) {
+    this.id = id;
+    this.date = date;
     }
 
     public EndOfFishing() {}
@@ -48,15 +54,20 @@ public class EndOfFishing {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
+                .add("id", this.id)
                 .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();
     }
 
     @Override
     public String toString() {
-        return "EndOfFishing{" +
-                "id=" + id +
-                ", date=" + date +
-                '}';
+        ObjectMapper mapperObj = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapperObj.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

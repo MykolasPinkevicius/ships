@@ -1,22 +1,19 @@
 package model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Catch {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlTransient
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @XmlTransient
     private Long id;
     @NotNull
     private String species;
@@ -27,6 +24,13 @@ public class Catch {
         this.species = species;
         this.weight = weight;
     }
+
+    public Catch(Long id, String species, double weight) {
+        this.id = id;
+        this.species = species;
+        this.weight = weight;
+    }
+
     public Catch() {}
 
     public String getSpecies() {
@@ -55,6 +59,7 @@ public class Catch {
 
     public JsonObject toJson() {
        return Json.createObjectBuilder()
+               .add("id", this.id)
        .add("species", this.species)
        .add("weight", this.weight)
        .build();
@@ -62,10 +67,13 @@ public class Catch {
 
     @Override
     public String toString() {
-        return "Catch{" +
-                "id=" + id +
-                ", species='" + species + '\'' +
-                ", weight=" + weight +
-                '}';
+        ObjectMapper mapperObj = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapperObj.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
