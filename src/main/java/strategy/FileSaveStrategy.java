@@ -4,8 +4,8 @@ package strategy;
 import dao.ConfigurationDAO;
 import dao.LogbookDAO;
 import model.Logbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ public class FileSaveStrategy implements SavingStrategy {
 
     private String fileSavingPath;
 
-    Logger logger = LoggerFactory.getLogger(LogbookDAO.class);
+    Logger logger = LogManager.getLogger(LogbookDAO.class);
 
     public FileSaveStrategy(String fileSavingPath) {
         this.fileSavingPath = fileSavingPath;

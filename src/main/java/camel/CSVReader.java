@@ -205,14 +205,6 @@ public class CSVReader extends RouteBuilder {
                                 .process().exchange(exchange -> logbookCommunicationTypeCSVParser()).endChoice()
                             .end()
                         .end()
-
-//                .process(exchange ->{
-//                    List<String> logbookJsonList = logbookListCSVParser()
-//                            .stream()
-//                            .map(Logbook::toString)
-//                            .collect(Collectors.toList());
-//                    exchange.getOut().setBody(logbookJsonList.toString());
-//                })
                 .process().exchange(exchange -> {
                     logbookCommunicationTypeCSVParser();
                 List <Logbook> logbookList = logbookListCSVParser();
@@ -221,7 +213,6 @@ public class CSVReader extends RouteBuilder {
                     String logbookString = String.valueOf(logbook.toJson().toString());
                     logbookListToString.add(logbookString);
                 }
-                System.out.println(logbookList.toString());
                 exchange.getOut().setBody(logbookListToString.toString());
             try {
                 Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Arrival.csv"));
