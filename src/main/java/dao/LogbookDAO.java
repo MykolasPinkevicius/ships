@@ -1,6 +1,5 @@
 package dao;
 
-import configuration.ConfigurationDAO;
 import model.Logbook;
 import strategy.DatabaseSaveStrategy;
 import strategy.FileSaveStrategy;

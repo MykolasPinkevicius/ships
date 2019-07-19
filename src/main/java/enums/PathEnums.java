@@ -9,7 +9,7 @@ public enum PathEnums {
     ZIPINBOXPATH("file:C:\\Dev\\Savedfiles\\zip"),
     ZIPINBOXSCANPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\zip?noop=false&delete=true&delay=5s"),
     INBOXPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles"),
-    CSVZIPPATH("C:\\Dev\\Savedfiles\\zip\\");
+    CSVZIPPATH("C:\\Dev\\SavedFiles\\zip\\");
 
     private String path;
 

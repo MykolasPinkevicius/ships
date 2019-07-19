@@ -1,6 +1,7 @@
-package configuration;
+package dao;
 
 
+import configuration.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

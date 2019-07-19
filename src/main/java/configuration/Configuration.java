@@ -1,5 +1,7 @@
 package configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.*;
@@ -56,4 +58,20 @@ public class Configuration {
                 .add("value", this.value)
                 .build();
     }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapperObj = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapperObj.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+
+
+
 }

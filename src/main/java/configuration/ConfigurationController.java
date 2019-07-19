@@ -1,6 +1,8 @@
 package configuration;
 
 
+import dao.ConfigurationDAO;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.Valid;

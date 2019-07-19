@@ -1,7 +1,7 @@
 package strategy;
 
 
-import configuration.ConfigurationDAO;
+import dao.ConfigurationDAO;
 import dao.LogbookDAO;
 import model.Logbook;
 import org.slf4j.Logger;
