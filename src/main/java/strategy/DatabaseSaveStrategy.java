@@ -5,14 +5,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 public class DatabaseSaveStrategy implements SavingStrategy {
 
 
     private Logger logger = LogManager.getLogger(DatabaseSaveStrategy.class);
 
-    @PersistenceContext(name = "prod")
     private EntityManager em;
 
 
