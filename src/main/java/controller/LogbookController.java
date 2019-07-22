@@ -38,7 +38,7 @@ public class LogbookController {
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("/allLogbooks")
     public Response saveAll(@Valid List<Logbook> logbookList) {
-            logbookDAO.createAll(logbookList);
+        logbookDAO.createAll(logbookList);
         return Response.ok().build();
     }
 

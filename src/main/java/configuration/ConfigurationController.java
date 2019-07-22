@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes({MediaType.APPLICATION_JSON})
 public class ConfigurationController {
     @Inject
-    ConfigurationDAO configurationDAO;
+    private ConfigurationDAO configurationDAO;
 
     @POST
     public void save(@Valid Configuration configuration) {

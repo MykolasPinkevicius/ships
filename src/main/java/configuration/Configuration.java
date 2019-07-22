@@ -27,7 +27,6 @@ public class Configuration {
     }
 
     public Configuration() {}
-
     public Long getId() {
         return id;
     }

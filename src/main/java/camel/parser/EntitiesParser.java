@@ -22,7 +22,7 @@ public class EntitiesParser {
 
     public static void arrivalCSVParser(){
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Arrival.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath()+"Arrival.csv"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                     .withHeader("ID", "logbookID", "port", "date")
                     .withSkipHeaderRecord()
@@ -51,7 +51,7 @@ public class EntitiesParser {
 
     public static void departureCSVParser(){
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPPATH.getPath() + "Departure.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "Departure.csv"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                     .withHeader("ID", "logbookID", "port", "date")
                     .withSkipHeaderRecord()
@@ -80,7 +80,7 @@ public class EntitiesParser {
 
     public static void catchCSVParser(){
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Catch.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath()+"Catch.csv"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                     .withHeader("ID", "logbookID", "species", "weight")
                     .withSkipHeaderRecord()
@@ -109,7 +109,7 @@ public class EntitiesParser {
 
     public static void endOfFishingCSVParser() {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPPATH.getPath()+"EndOfFishing.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath()+"EndOfFishing.csv"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                     .withHeader("ID", "logbookID", "date")
                     .withSkipHeaderRecord()
@@ -137,7 +137,7 @@ public class EntitiesParser {
 
     public static void logbookCommunicationTypeCSVParser() {
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Logbook.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath()+"Logbook.csv"));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                     .withHeader("ID", "communicationType")
                     .withSkipHeaderRecord()
