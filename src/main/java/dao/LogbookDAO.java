@@ -92,7 +92,7 @@ public class LogbookDAO {
         }
         return new DatabaseSaveStrategy(em);
     }
-    
+
     public Logbook findById(Long id) {
         return em.find(Logbook.class, id);
     }
