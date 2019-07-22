@@ -120,6 +120,11 @@ class LogbookDAOTest {
         assertEquals(logList, list);
 
     }
+//    TODO pessimistic lock test
+    @Test
+    public void pessimisticLockingTest() {
+
+    }
 
 
 }
