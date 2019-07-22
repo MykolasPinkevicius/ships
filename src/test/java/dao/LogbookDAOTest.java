@@ -45,9 +45,8 @@ class LogbookDAOTest {
 
     @Test
     public void create() throws IOException {
-//        TODO test
-//        logbookDAO.create(logger);
-//        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        logbookDAO.create(logger);
+        verify(entityManager, times(1)).persist(logger);
     }
 
     @Test

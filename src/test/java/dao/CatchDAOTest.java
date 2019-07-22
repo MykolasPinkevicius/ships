@@ -8,9 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
-import javax.ws.rs.core.Response;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -31,13 +29,8 @@ class CatchDAOTest {
 
     @Test
     public void create() {
-        Response response = null;
-        try {
-            response = catchDAO.create(aCatch);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+     catchDAO.create(aCatch);
+     verify(entityManager, times(1)).persist(aCatch);
     }
 
     @Test

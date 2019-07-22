@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
@@ -18,14 +17,8 @@ public class DepartureDAO {
         return em.createQuery("select d from Departure d").getResultList();
     }
 
-    public Response create(Departure departure) {
-        try {
+    public void create(Departure departure) {
             em.persist(departure);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Response.status(500).build();
-        }
-        return Response.status(Response.Status.CREATED).entity("Departure saved in database").build();
     }
 
     public Departure findById(Long id) {

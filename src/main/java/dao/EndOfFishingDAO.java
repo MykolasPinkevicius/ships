@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
@@ -19,14 +18,8 @@ public class EndOfFishingDAO {
         return em.createQuery("select e from EndOfFishing e").getResultList();
     }
 
-    public Response create(EndOfFishing endOfFishing) {
-        try {
+    public void create(EndOfFishing endOfFishing) {
             em.persist(endOfFishing);
-        } catch(Exception e) {
-            e.printStackTrace();
-            return Response.status(500).build();
-        }
-        return Response.status(Response.Status.CREATED).entity("EndOfFishing saved in database").build();
     }
 
     public EndOfFishing findById(Long id) {

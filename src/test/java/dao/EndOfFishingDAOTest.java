@@ -8,12 +8,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
-import javax.ws.rs.core.Response;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -37,13 +35,8 @@ class EndOfFishingDAOTest {
 
     @Test
     public void create() {
-        Response response = null;
-        try {
-            response = endOfFishingDAO.create(endOfFishing);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        endOfFishingDAO.create(endOfFishing);
+        verify(entityManager, times(1)).persist(endOfFishing);
     }
 
     @Test

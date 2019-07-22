@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Stateless
@@ -17,14 +16,8 @@ public class CatchDAO {
     public List<Catch> findAll() {
         return em.createQuery("select c from Catch c").getResultList();
     }
-    public Response create(Catch aCatch) {
-        try {
+    public void create(Catch aCatch) {
             em.persist(aCatch);
-        } catch(Exception e) {
-            e.printStackTrace();
-            Response.status(500).build();
-        }
-        return Response.status(Response.Status.CREATED).entity("Catch saved in database").build();
     }
 
     public Catch findById(Long id) {
