@@ -20,8 +20,7 @@ public class FileTransfer {
             camelContext.start();
             camelContext.setStreamCaching(true);
             camelContext.addRoutes(new FileToObjectRoute());
-//            camelContext.addRoutes(new ZipToFileRoute());
-            camelContext.addRoutes(new CSVReader());
+            camelContext.addRoutes(new CsvToEntityRoute());
         } catch (Exception e) {
             e.printStackTrace();
         }

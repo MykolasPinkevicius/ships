@@ -1,31 +1,24 @@
-package camel;
+package camel.parser;
 
 import enums.PathEnums;
 import model.*;
-import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.zipfile.ZipSplitter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Stateless
-public class CSVReader extends RouteBuilder {
+public class EntitiesParser {
 
     private static Map<String, Map<String, Object>> logbookMap = new HashMap<>();
-    private static final String CONFIGURE_HEADER_NAME = "zipFileName";
 
     public static void arrivalCSVParser(){
         try {
@@ -169,7 +162,7 @@ public class CSVReader extends RouteBuilder {
         }
     }
 
-    public List<Logbook> logbookListCSVParser() {
+    public static List<Logbook> logbookListCSVParser() {
         return logbookMap.entrySet().stream().map(stringMapEntry ->
                 new Logbook.Builder()
                         .withID(stringMapEntry.getKey())
@@ -182,51 +175,4 @@ public class CSVReader extends RouteBuilder {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void configure() {
-        from(PathEnums.ZIPSCANPATH.getPath())
-                .split(new ZipSplitter())
-                    .streaming()
-                        .choice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Arrival.csv"))
-                                .to(PathEnums.ZIPINBOXPATH.getPath() + "?fileName=Arrival.csv")
-                                .process().exchange(exchange -> arrivalCSVParser()).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Departure.csv"))
-                                .to(PathEnums.ZIPINBOXPATH.getPath() + "?fileName=Departure.csv")
-                                .process().exchange(exchange -> departureCSVParser()).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Catch.csv"))
-                                .to(PathEnums.ZIPINBOXPATH.getPath() + "?fileName=Catch.csv")
-                                .process().exchange(exchange -> catchCSVParser()).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("EndOfFishing.csv"))
-                                .to(PathEnums.ZIPINBOXPATH.getPath() + "?fileName=EndOfFishing.csv")
-                                .process().exchange(exchange -> endOfFishingCSVParser()).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Logbook.csv"))
-                                .to(PathEnums.ZIPINBOXPATH.getPath() + "?fileName=Logbook.csv")
-                                .process().exchange(exchange -> logbookCommunicationTypeCSVParser()).endChoice()
-                            .end()
-                        .end()
-                .process().exchange(exchange -> {
-                    logbookCommunicationTypeCSVParser();
-                List <Logbook> logbookList = logbookListCSVParser();
-                List <String> logbookListToString = new ArrayList<>();
-                for(Logbook logbook : logbookList) {
-                    String logbookString = String.valueOf(logbook.toJson().toString());
-                    logbookListToString.add(logbookString);
-                }
-                exchange.getOut().setBody(logbookListToString.toString());
-            try {
-                Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Arrival.csv"));
-                Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Departure.csv"));
-                Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Catch.csv"));
-                Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"EndOfFishing.csv"));
-                Files.deleteIfExists(Paths.get(PathEnums.CSVZIPPATH.getPath()+"Logbook.csv"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        })
-
-                .setHeader(Exchange.HTTP_METHOD, constant("POST"))
-                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                .to("http://localhost:8080/project/app/logbooks/allLogbooks/");
-    }
 }
