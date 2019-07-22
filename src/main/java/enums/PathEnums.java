@@ -7,9 +7,6 @@ public enum PathEnums {
     //    Currently using database configuration table, left it for different app configuration
     ZIPPATH("C:\\Dev\\wildfly-9.0.2.Final\\bin\\zip\\"),
     ZIPINBOXPATH("file:C:\\Dev\\Savedfiles\\zip"),
-    CSVTOENTITYPATH("file:C:\\Dev\\SavedFiles\\zip?noop=false&delete=true&delay=5s&initialDelay=5s"),
-    ZIPINBOXSCANPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles\\zip?noop=false&delete=true&delay=5s"),
-    INBOXPATH("file:C:\\Dev\\wildfly-9.0.2.Final\\bin\\Savedfiles"),
     CSVZIPPATH("C:\\Dev\\SavedFiles\\zip\\");
 
     private String path;

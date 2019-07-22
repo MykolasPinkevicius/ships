@@ -27,6 +27,13 @@ public class LogbookController {
         return Response.ok().build();
     }
 
+    @PUT
+    @Path("{id}")
+    public Response updateLogbook(@PathParam("id") Long id, @Valid Logbook logbook) {
+        logbookDAO.update(id, logbook);
+        return Response.ok().build();
+    }
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("/allLogbooks")

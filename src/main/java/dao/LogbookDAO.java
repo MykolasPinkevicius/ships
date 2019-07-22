@@ -8,7 +8,9 @@ import strategy.SavingStrategy;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -96,13 +98,12 @@ public class LogbookDAO {
     public void remove(Long id) {
         em.remove(id);
     }
-//    TODO delete this
+
+    @Transactional
     public void update(Long id, Logbook logbook) {
         Logbook updatedLogbook = em.find(Logbook.class, id);
-        updatedLogbook.setaCatch(logbook.getaCatch());
-        updatedLogbook.setArrival(logbook.getArrival());
-        updatedLogbook.setDeparture(logbook.getDeparture());
-        updatedLogbook.setEndOfFishing(logbook.getEndOfFishing());
+        em.lock(updatedLogbook, LockModeType.PESSIMISTIC_WRITE);
+        updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
         em.merge(updatedLogbook);
     }
 }

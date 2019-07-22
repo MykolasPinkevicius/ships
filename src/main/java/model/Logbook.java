@@ -169,5 +169,16 @@ public class Logbook {
         }
     }
 
+    public static Logbook updateLogbook(Logbook updatedLogbook, Logbook logbook) {
+        updatedLogbook.getaCatch().setSpecies(logbook.getaCatch().getSpecies());
+        updatedLogbook.getaCatch().setWeight(logbook.getaCatch().getWeight());
+        updatedLogbook.getArrival().setDate(logbook.getArrival().getDate());
+        updatedLogbook.getArrival().setPort(logbook.getArrival().getPort());
+        updatedLogbook.getDeparture().setDate(logbook.getDeparture().getDate());
+        updatedLogbook.getDeparture().setPort(logbook.getDeparture().getPort());
+        updatedLogbook.getEndOfFishing().setDate(logbook.getEndOfFishing().getDate());
+        return updatedLogbook;
+    }
+
 
 }
