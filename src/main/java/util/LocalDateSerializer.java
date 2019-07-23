@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateSerializer extends StdSerializer<LocalDate> {
-    public LocalDateSerializer() {
+
+    protected LocalDateSerializer() {
         super(LocalDate.class);
     }
 
