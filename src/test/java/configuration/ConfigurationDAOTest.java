@@ -29,7 +29,7 @@ class ConfigurationDAOTest {
 
     @BeforeEach
     void setUp() {
-        configuration = new Configuration("inboxPath", "C:/Dev/wildfly-9.0.2.Final/bin/Savedfiles/");
+        configuration = new Configuration("inboxPath", "C:/Dev/SavedFiles/");
         MockitoAnnotations.initMocks(this);
         mockedQuerry = Mockito.mock(TypedQuery.class);
 
