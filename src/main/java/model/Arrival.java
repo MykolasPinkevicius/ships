@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.DateStringFormatter;
 
 import javax.json.Json;
@@ -17,6 +19,8 @@ import java.util.Date;
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Arrival {
+
+    private static Logger logger = LogManager.getLogger(Arrival.class);
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,7 +85,7 @@ public class Arrival {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during toString Arrival {}", e);
         }
         return json;
     }

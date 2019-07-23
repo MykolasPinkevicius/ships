@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 //@XmlRootElement
 public class Logbook {
+
+    private static Logger logger = LogManager.getLogger(Logbook.class);
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -130,7 +134,7 @@ public class Logbook {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.error("Error during toString Logbook {}", e);
         }
         return json;
     }

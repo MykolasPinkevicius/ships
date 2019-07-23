@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.DateStringFormatter;
 
 import javax.json.Json;
@@ -15,6 +17,9 @@ import java.util.Date;
 @Entity
 //@XmlAccessorType(XmlAccessType.FIELD)
 public class Departure {
+
+    private static Logger logger = LogManager.getLogger(Departure.class);
+
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    @XmlTransient
@@ -22,10 +27,6 @@ public class Departure {
     @NotNull
     private String port;
     @NotNull
-//    @JsonFormat(pattern="yyyy-MM-dd")
-//    @Column(columnDefinition = "DATE")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
     @Temporal(TemporalType.DATE)
     private Date date;
 
@@ -82,7 +83,7 @@ public class Departure {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during toString Departure {}", e);
         }
         return json;
     }

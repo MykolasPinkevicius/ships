@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.DateStringFormatter;
 
 import javax.json.Json;
@@ -15,6 +17,8 @@ import java.util.Date;
 @Entity
 //@XmlAccessorType(XmlAccessType.FIELD)
 public class EndOfFishing {
+
+    private static Logger logger = LogManager.getLogger(EndOfFishing.class);
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,7 +71,7 @@ public class EndOfFishing {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during toString EndOfFishing {}", e);
         }
         return json;
     }

@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,6 +13,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 //@XmlAccessorType(XmlAccessType.FIELD)
 public class Catch {
+
+    private static Logger logger = LogManager.getLogger(Catch.class);
+
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    @XmlTransient
@@ -73,7 +78,7 @@ public class Catch {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during toString Catch {}", e);
         }
         return json;
     }
