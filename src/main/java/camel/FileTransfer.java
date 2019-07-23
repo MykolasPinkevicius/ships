@@ -1,7 +1,6 @@
 package camel;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.converter.stream.CachedOutputStream;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +22,8 @@ public class FileTransfer {
     public static void save() {
         try {
             camelContext.start();
-            camelContext.setStreamCaching(true);
             camelContext.addRoutes(new FileToObjectRoute());
             camelContext.addRoutes(new CsvToEntityRoute());
-            camelContext.getProperties().put(CachedOutputStream.THRESHOLD, "750000");
         } catch (Exception e) {
             logger.error("Error was in camelContext starting {}", e);
         }

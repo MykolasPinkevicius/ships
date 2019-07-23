@@ -11,8 +11,9 @@ import java.util.List;
 
 @Stateless
 public class EndOfFishingDAO {
+
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    EntityManager em;
+    private EntityManager em;
 
     public List<EndOfFishing> findAll() {
         return em.createQuery("select e from EndOfFishing e").getResultList();

@@ -10,8 +10,9 @@ import java.util.List;
 
 @Stateless
 public class CatchDAO {
+
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    EntityManager em;
+    private EntityManager em;
 
     public List<Catch> findAll() {
         return em.createQuery("select c from Catch c").getResultList();

@@ -39,7 +39,8 @@ public class Arrival {
         this.date = date;
     }
 
-    public Arrival() {}
+    public Arrival() {
+    }
 
     public String getPort() {
         return port;

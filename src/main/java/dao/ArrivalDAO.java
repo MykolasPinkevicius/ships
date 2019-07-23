@@ -10,8 +10,9 @@ import java.util.List;
 
 @Stateless
 public class ArrivalDAO {
+
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    EntityManager em;
+    private EntityManager em;
 
     public List<Arrival> findAll() {
         return em.createQuery("select a from Arrival a").getResultList();

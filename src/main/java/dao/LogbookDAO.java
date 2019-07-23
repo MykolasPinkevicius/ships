@@ -1,6 +1,8 @@
 package dao;
 
 import model.Logbook;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import strategy.DatabaseSaveStrategy;
 import strategy.FileSaveStrategy;
 import strategy.SavingStrategy;
@@ -15,11 +17,14 @@ import java.util.List;
 
 @Stateless
 public class LogbookDAO {
+
     @Inject
-    ConfigurationDAO configurationDAO;
+    private ConfigurationDAO configurationDAO;
 
     @PersistenceContext(name = "prod")
     private EntityManager em;
+
+    private Logger logger = LogManager.getLogger(Logbook.class);
 
     public LogbookDAO(EntityManager entityManager) {
         this.em = entityManager;
@@ -71,7 +76,7 @@ public class LogbookDAO {
             try {
                 getStrategy(logbook).create(logbook);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Saving logbooks failed on service layer {}", e);
             }
         }
     }
@@ -93,7 +98,6 @@ public class LogbookDAO {
     }
 
     public void update(Long id, Logbook logbook) {
-        LogbookDAO logbookDAO = new LogbookDAO();
         Logbook updatedLogbook = em.find(Logbook.class, id);
         em.lock(updatedLogbook, LockModeType.PESSIMISTIC_WRITE);
         updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);

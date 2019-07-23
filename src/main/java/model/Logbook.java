@@ -50,7 +50,19 @@ public class Logbook {
         this.communicationType = communicationType;
     }
 
-    public Logbook() {};
+    public Logbook() {
+    }
+
+    public static Logbook updateLogbook(Logbook updatedLogbook, Logbook logbook) {
+        updatedLogbook.getaCatch().setSpecies(logbook.getaCatch().getSpecies());
+        updatedLogbook.getaCatch().setWeight(logbook.getaCatch().getWeight());
+        updatedLogbook.getArrival().setDate(logbook.getArrival().getDate());
+        updatedLogbook.getArrival().setPort(logbook.getArrival().getPort());
+        updatedLogbook.getDeparture().setDate(logbook.getDeparture().getDate());
+        updatedLogbook.getDeparture().setPort(logbook.getDeparture().getPort());
+        updatedLogbook.getEndOfFishing().setDate(logbook.getEndOfFishing().getDate());
+        return updatedLogbook;
+    }
 
     public String getCommunicationType() {
         return communicationType;
@@ -60,8 +72,7 @@ public class Logbook {
         this.communicationType = communicationType;
     }
 
-    public Departure getDeparture() {{
-    }
+    public Departure getDeparture() {
         return departure;
     }
 
@@ -103,13 +114,13 @@ public class Logbook {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                        .add("id", this.id)
-                        .add("departure", departure.toJson())
-                        .add("aCatch", aCatch.toJson())
-                        .add("arrival", arrival.toJson())
-                        .add("endOfFishing", endOfFishing.toJson())
-                        .add("communicationType", this.communicationType)
-                        .build();
+                .add("id", this.id)
+                .add("departure", departure.toJson())
+                .add("aCatch", aCatch.toJson())
+                .add("arrival", arrival.toJson())
+                .add("endOfFishing", endOfFishing.toJson())
+                .add("communicationType", this.communicationType)
+                .build();
     }
 
     @Override
@@ -136,22 +147,27 @@ public class Logbook {
             this.id = id;
             return this;
         }
+
         public Builder withArrival(Arrival arrival) {
             this.arrival = arrival;
             return this;
         }
+
         public Builder withDeparture(Departure departure) {
             this.departure = departure;
             return this;
         }
+
         public Builder withEndOfFishing(EndOfFishing endOfFishing) {
             this.endOfFishing = endOfFishing;
             return this;
         }
+
         public Builder withCatch(Catch aCatch) {
             this.aCatch = aCatch;
             return this;
         }
+
         public Builder withCommunicationType(String communicationType) {
             this.communicationType = communicationType;
             return this;
@@ -167,17 +183,6 @@ public class Logbook {
             logbook.setId(Long.valueOf(this.id));
             return logbook;
         }
-    }
-
-    public static Logbook updateLogbook(Logbook updatedLogbook, Logbook logbook) {
-        updatedLogbook.getaCatch().setSpecies(logbook.getaCatch().getSpecies());
-        updatedLogbook.getaCatch().setWeight(logbook.getaCatch().getWeight());
-        updatedLogbook.getArrival().setDate(logbook.getArrival().getDate());
-        updatedLogbook.getArrival().setPort(logbook.getArrival().getPort());
-        updatedLogbook.getDeparture().setDate(logbook.getDeparture().getDate());
-        updatedLogbook.getDeparture().setPort(logbook.getDeparture().getPort());
-        updatedLogbook.getEndOfFishing().setDate(logbook.getEndOfFishing().getDate());
-        return updatedLogbook;
     }
 
 

@@ -18,21 +18,18 @@ import java.util.UUID;
 @Stateless
 public class FileSaveStrategy implements SavingStrategy {
 
-    private String fileSavingPath;
-
     Logger logger = LogManager.getLogger(LogbookDAO.class);
+    @Inject
+    ConfigurationDAO configurationDAO;
+    private String fileSavingPath;
 
     public FileSaveStrategy(String fileSavingPath) {
         this.fileSavingPath = fileSavingPath;
     }
 
+
     public FileSaveStrategy() {
     }
-
-
-
-    @Inject
-    ConfigurationDAO configurationDAO;
 
     public void create(Logbook logbook) throws IOException {
         LocalDate ld = LocalDateTime.now().toLocalDate();

@@ -5,8 +5,6 @@ import model.Catch;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -19,8 +17,9 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class CatchController {
+
     @Inject
-    CatchDAO catchDAO;
+    private CatchDAO catchDAO;
 
     @POST
     public Response save(@Valid Catch aCatch) {
@@ -34,11 +33,10 @@ public class CatchController {
         Catch aCatch = catchDAO.findById(id);
         return aCatch.toJson();
     }
+
     @GET
     public List<Catch> findAll() {
-        JsonArrayBuilder list = Json.createArrayBuilder();
-        List<Catch> all = catchDAO.findAll();
-        return all;
+        return catchDAO.findAll();
     }
 
     @DELETE

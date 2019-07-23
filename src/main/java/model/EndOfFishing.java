@@ -30,11 +30,12 @@ public class EndOfFishing {
     }
 
     public EndOfFishing(Long id, Date date) {
-    this.id = id;
-    this.date = date;
+        this.id = id;
+        this.date = date;
     }
 
-    public EndOfFishing() {}
+    public EndOfFishing() {
+    }
 
     public Date getDate() {
         return date;

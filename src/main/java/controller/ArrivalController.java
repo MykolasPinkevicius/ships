@@ -5,7 +5,7 @@ import model.Arrival;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.*;
+import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -17,8 +17,9 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class ArrivalController {
+
     @Inject
-    ArrivalDAO arrivalDAO;
+    private ArrivalDAO arrivalDAO;
 
     @POST
     public Response save(@Valid Arrival arrival) {
@@ -35,9 +36,7 @@ public class ArrivalController {
 
     @GET
     public List<Arrival> findAll() {
-        JsonArrayBuilder list = Json.createArrayBuilder();
-        List<Arrival> all = arrivalDAO.findAll();
-        return all;
+        return arrivalDAO.findAll();
     }
 
     @DELETE

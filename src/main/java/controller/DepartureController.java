@@ -17,8 +17,9 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class DepartureController {
+
     @Inject
-    DepartureDAO departureDAO;
+    private DepartureDAO departureDAO;
 
     @POST
     public Response save(@Valid Departure departure) {

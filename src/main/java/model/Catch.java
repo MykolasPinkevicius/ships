@@ -31,7 +31,8 @@ public class Catch {
         this.weight = weight;
     }
 
-    public Catch() {}
+    public Catch() {
+    }
 
     public String getSpecies() {
         return species;
@@ -58,11 +59,11 @@ public class Catch {
     }
 
     public JsonObject toJson() {
-       return Json.createObjectBuilder()
-               .add("id", this.id)
-       .add("species", this.species)
-       .add("weight", this.weight)
-       .build();
+        return Json.createObjectBuilder()
+                .add("id", this.id)
+                .add("species", this.species)
+                .add("weight", this.weight)
+                .build();
     }
 
     @Override

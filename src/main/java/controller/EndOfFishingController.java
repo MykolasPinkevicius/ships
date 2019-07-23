@@ -5,8 +5,6 @@ import model.EndOfFishing;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -19,8 +17,9 @@ import java.util.List;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class EndOfFishingController {
+
     @Inject
-    EndOfFishingDAO endOfFishingDAO;
+    private EndOfFishingDAO endOfFishingDAO;
 
     @POST
     public Response save(@Valid EndOfFishing endOfFishing) {
@@ -37,9 +36,7 @@ public class EndOfFishingController {
 
     @GET
     public List<EndOfFishing> findAll() {
-        JsonArrayBuilder list = Json.createArrayBuilder();
-        List<EndOfFishing> all = endOfFishingDAO.findAll();
-        return all;
+        return endOfFishingDAO.findAll();
     }
 
     @DELETE

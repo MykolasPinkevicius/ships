@@ -40,7 +40,8 @@ public class Departure {
         this.date = date;
     }
 
-    public Departure() {}
+    public Departure() {
+    }
 
     public String getPort() {
         return port;
