@@ -9,12 +9,15 @@ import org.apache.camel.dataformat.zipfile.ZipSplitter;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class CsvToEntityRoute extends RouteBuilder {
 
     private static final String CONFIGURE_HEADER_NAME = "zipFileName";
+    private static Map<String, Map<String, Object>> logbookMap = new HashMap<>();
 
     @Override
     public void configure() {
@@ -25,32 +28,32 @@ public class CsvToEntityRoute extends RouteBuilder {
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Arrival.csv"))
                 .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Arrival.csv")
                 .process().exchange(exchange ->
-                EntitiesParser.arrivalCSVParser()
+                EntitiesParser.arrivalCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Departure.csv"))
                 .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Departure.csv")
                 .process().exchange(exchange ->
-                EntitiesParser.departureCSVParser()
+                EntitiesParser.departureCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Catch.csv"))
                 .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Catch.csv")
                 .process().exchange(exchange ->
-                EntitiesParser.catchCSVParser()
+                EntitiesParser.catchCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("EndOfFishing.csv"))
                 .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=EndOfFishing.csv")
                 .process().exchange(exchange ->
-                EntitiesParser.endOfFishingCSVParser()
+                EntitiesParser.endOfFishingCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Logbook.csv"))
                 .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Logbook.csv")
                 .process().exchange(exchange ->
-                EntitiesParser.logbookCommunicationTypeCSVParser()
+                EntitiesParser.logbookCommunicationTypeCSVParser(logbookMap)
         ).endChoice()
                 .end()
                 .end()
                 .process().exchange(exchange -> {
-            List<Logbook> logbookList = EntitiesParser.logbookListCSVParser();
+            List<Logbook> logbookList = EntitiesParser.logbookListCSVParser(logbookMap);
             List<String> logbookListToString = new ArrayList<>();
             for (Logbook logbook : logbookList) {
                 String logbookString = String.valueOf(logbook.toJson().toString());

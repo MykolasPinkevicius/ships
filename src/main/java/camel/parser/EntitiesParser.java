@@ -26,13 +26,12 @@ public class EntitiesParser {
     private static final String ENDOFFISHING = "endOfFishing";
     private static final String COMMUNICATIONTYPE = "communicationType";
     private static final String LOGBOOKID = "logbookID";
-    private static Map<String, Map<String, Object>> logbookMap = new HashMap<>();
     private static Logger logger = LogManager.getLogger(EntitiesParser.class);
 
     protected EntitiesParser() {
     }
 
-    public static void arrivalCSVParser() {
+    public static void arrivalCSVParser(Map<String, Map<String, Object>> logbookMap) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "Arrival.csv"));
             try (CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
@@ -62,7 +61,7 @@ public class EntitiesParser {
         }
     }
 
-    public static void departureCSVParser() {
+    public static void departureCSVParser(Map<String, Map<String, Object>> logbookMap) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "Departure.csv"));
             try (CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
@@ -92,7 +91,7 @@ public class EntitiesParser {
         }
     }
 
-    public static void catchCSVParser() {
+    public static void catchCSVParser(Map<String, Map<String, Object>> logbookMap) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "Catch.csv"));
             try (CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
@@ -122,7 +121,7 @@ public class EntitiesParser {
         }
     }
 
-    public static void endOfFishingCSVParser() {
+    public static void endOfFishingCSVParser(Map<String, Map<String, Object>> logbookMap) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "EndOfFishing.csv"));
             try (CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
@@ -151,7 +150,7 @@ public class EntitiesParser {
         }
     }
 
-    public static void logbookCommunicationTypeCSVParser() {
+    public static void logbookCommunicationTypeCSVParser(Map<String, Map<String, Object>> logbookMap) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PathEnums.CSVZIPTESTPATH.getPath() + "Logbook.csv"));
             try (CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
@@ -179,7 +178,7 @@ public class EntitiesParser {
         }
     }
 
-    public static List<Logbook> logbookListCSVParser() {
+    public static List<Logbook> logbookListCSVParser(Map<String, Map<String, Object>> logbookMap) {
         return logbookMap.entrySet().stream().map(stringMapEntry ->
                 new Logbook.Builder()
                         .withID(stringMapEntry.getKey())
