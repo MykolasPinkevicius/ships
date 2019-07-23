@@ -20,43 +20,43 @@ public class CsvToEntityRoute extends RouteBuilder {
     public void configure() {
         from(PathEnums.ZIPSCANPATH.getPath())
                 .split(new ZipSplitter())
-                    .streaming()
-                        .choice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Arrival.csv"))
-                                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Arrival.csv")
-                                .process().exchange(exchange -> {
-                                    EntitiesParser.arrivalCSVParser();
-                                }).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Departure.csv"))
-                                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Departure.csv")
-                                .process().exchange(exchange -> {
-                                    EntitiesParser.departureCSVParser();
-                                }).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Catch.csv"))
-                                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Catch.csv")
-                                .process().exchange(exchange -> {
-                                    EntitiesParser.catchCSVParser();
-                                }).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("EndOfFishing.csv"))
-                                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=EndOfFishing.csv")
-                                .process().exchange(exchange -> {
-                                    EntitiesParser.endOfFishingCSVParser();
-                                }).endChoice()
-                            .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Logbook.csv"))
-                                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Logbook.csv")
-                                .process().exchange(exchange -> {
-                                    EntitiesParser.logbookCommunicationTypeCSVParser();
-                                    }).endChoice()
-                            .end()
-                        .end()
+                .streaming()
+                .choice()
+                .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Arrival.csv"))
+                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Arrival.csv")
+                .process().exchange(exchange ->
+                EntitiesParser.arrivalCSVParser()
+        ).endChoice()
+                .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Departure.csv"))
+                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Departure.csv")
+                .process().exchange(exchange ->
+                EntitiesParser.departureCSVParser()
+        ).endChoice()
+                .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Catch.csv"))
+                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Catch.csv")
+                .process().exchange(exchange ->
+                EntitiesParser.catchCSVParser()
+        ).endChoice()
+                .when(header(CONFIGURE_HEADER_NAME).isEqualTo("EndOfFishing.csv"))
+                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=EndOfFishing.csv")
+                .process().exchange(exchange ->
+                EntitiesParser.endOfFishingCSVParser()
+        ).endChoice()
+                .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Logbook.csv"))
+                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Logbook.csv")
+                .process().exchange(exchange ->
+                EntitiesParser.logbookCommunicationTypeCSVParser()
+        ).endChoice()
+                .end()
+                .end()
                 .process().exchange(exchange -> {
-                List <Logbook> logbookList = EntitiesParser.logbookListCSVParser();
-                List <String> logbookListToString = new ArrayList<>();
-                for(Logbook logbook : logbookList) {
-                    String logbookString = String.valueOf(logbook.toJson().toString());
-                    logbookListToString.add(logbookString);
-                }
-                exchange.getOut().setBody(logbookListToString.toString());
+            List<Logbook> logbookList = EntitiesParser.logbookListCSVParser();
+            List<String> logbookListToString = new ArrayList<>();
+            for (Logbook logbook : logbookList) {
+                String logbookString = String.valueOf(logbook.toJson().toString());
+                logbookListToString.add(logbookString);
+            }
+            exchange.getOut().setBody(logbookListToString.toString());
         })
 
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))

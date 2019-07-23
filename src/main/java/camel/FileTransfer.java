@@ -3,6 +3,8 @@ package camel;
 import org.apache.camel.CamelContext;
 import org.apache.camel.converter.stream.CachedOutputStream;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -12,8 +14,10 @@ import javax.ejb.Startup;
 @Singleton
 @Startup
 public class FileTransfer {
+
     static CamelContext camelContext = new DefaultCamelContext();
 
+    private static Logger logger = LogManager.getLogger(FileTransfer.class);
 
     @PostConstruct
     public static void save() {
@@ -24,7 +28,7 @@ public class FileTransfer {
             camelContext.addRoutes(new CsvToEntityRoute());
             camelContext.getProperties().put(CachedOutputStream.THRESHOLD, "750000");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error was in camelContext starting {}", e);
         }
     }
 
@@ -33,7 +37,7 @@ public class FileTransfer {
         try {
             camelContext.stop();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error was in camelContext shutting down {}", e);
         }
     }
 }
