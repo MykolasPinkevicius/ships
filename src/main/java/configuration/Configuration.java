@@ -1,6 +1,8 @@
 package configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 public class Configuration {
 
+    private static Logger logger = LogManager.getLogger(Configuration.class);
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlTransient
@@ -26,7 +29,9 @@ public class Configuration {
         this.value = value;
     }
 
-    public Configuration() {}
+    public Configuration() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -65,12 +70,10 @@ public class Configuration {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Something wrong happened during toString method {}", e);
         }
         return json;
     }
-
-
 
 
 }

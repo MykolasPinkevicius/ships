@@ -2,6 +2,8 @@ package configuration;
 
 
 import dao.ConfigurationDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,6 +16,9 @@ import javax.ws.rs.core.MediaType;
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class ConfigurationController {
+
+    private static Logger logger = LogManager.getLogger(ConfigurationController.class);
+
     @Inject
     private ConfigurationDAO configurationDAO;
 
@@ -21,8 +26,8 @@ public class ConfigurationController {
     public void save(@Valid Configuration configuration) {
         try {
             configurationDAO.create(configuration);
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Configuration saving failed {} ", e);
         }
     }
 
