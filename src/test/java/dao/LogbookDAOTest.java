@@ -45,7 +45,7 @@ class LogbookDAOTest {
     @Test
     public void create() throws IOException {
         logbookDAO.create(logger);
-        verify(entityManager, times(1)).persist(logger);
+        verify(entityManager, times(1)).merge(logger);
     }
 
     @Test

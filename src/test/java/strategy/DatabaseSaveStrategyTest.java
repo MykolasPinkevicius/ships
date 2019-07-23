@@ -39,7 +39,7 @@ public class DatabaseSaveStrategyTest {
     @Test
     void createLogbookTestResponse() {
         databaseSaveStrategy.create(logbook);
-        verify(entityManagerMock, times(1)).persist(logbook);
+        verify(entityManagerMock, times(1)).merge(logbook);
     }
 
 
