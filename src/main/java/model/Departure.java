@@ -7,22 +7,19 @@ import util.DateStringFormatter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @Entity
-//@XmlAccessorType(XmlAccessType.FIELD)
 public class Departure {
 
     private static Logger logger = LogManager.getLogger(Departure.class);
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @XmlTransient
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlTransient
     private Long id;
     @NotNull
     private String port;
@@ -31,12 +28,6 @@ public class Departure {
     private Date date;
 
     public Departure(String port, Date date) {
-        this.port = port;
-        this.date = date;
-    }
-
-    public Departure(Long id, String port, Date date) {
-        this.id = id;
         this.port = port;
         this.date = date;
     }
@@ -70,7 +61,6 @@ public class Departure {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("id", this.id)
                 .add("port", this.port)
                 .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();

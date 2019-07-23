@@ -7,18 +7,20 @@ import org.apache.logging.log4j.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-//@XmlAccessorType(XmlAccessType.FIELD)
 public class Catch {
 
     private static Logger logger = LogManager.getLogger(Catch.class);
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @XmlTransient
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlTransient
     private Long id;
     @NotNull
     private String species;
@@ -26,12 +28,6 @@ public class Catch {
     private double weight;
 
     public Catch(String species, double weight) {
-        this.species = species;
-        this.weight = weight;
-    }
-
-    public Catch(Long id, String species, double weight) {
-        this.id = id;
         this.species = species;
         this.weight = weight;
     }
@@ -65,7 +61,6 @@ public class Catch {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("id", this.id)
                 .add("species", this.species)
                 .add("weight", this.weight)
                 .build();

@@ -7,22 +7,19 @@ import util.DateStringFormatter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @Entity
-//@XmlAccessorType(XmlAccessType.FIELD)
 public class EndOfFishing {
 
     private static Logger logger = LogManager.getLogger(EndOfFishing.class);
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @XmlTransient
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlTransient
     private Long id;
     @NotNull
 
@@ -30,11 +27,6 @@ public class EndOfFishing {
     private Date date;
 
     public EndOfFishing(Date date) {
-        this.date = date;
-    }
-
-    public EndOfFishing(Long id, Date date) {
-        this.id = id;
         this.date = date;
     }
 
@@ -59,7 +51,6 @@ public class EndOfFishing {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("id", this.id)
                 .add("date", DateStringFormatter.dateToStringWithFormat(this.date))
                 .build();
     }
