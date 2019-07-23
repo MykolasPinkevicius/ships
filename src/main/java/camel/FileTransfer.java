@@ -1,6 +1,7 @@
 package camel;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.converter.stream.CachedOutputStream;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +22,7 @@ public class FileTransfer {
             camelContext.setStreamCaching(true);
             camelContext.addRoutes(new FileToObjectRoute());
             camelContext.addRoutes(new CsvToEntityRoute());
+            camelContext.getProperties().put(CachedOutputStream.THRESHOLD, "750000");
         } catch (Exception e) {
             e.printStackTrace();
         }
