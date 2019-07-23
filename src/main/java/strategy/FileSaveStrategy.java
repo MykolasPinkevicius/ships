@@ -18,15 +18,16 @@ import java.util.UUID;
 @Stateless
 public class FileSaveStrategy implements SavingStrategy {
 
-    Logger logger = LogManager.getLogger(LogbookDAO.class);
     @Inject
     ConfigurationDAO configurationDAO;
+
+    private Logger logger = LogManager.getLogger(LogbookDAO.class);
+
     private String fileSavingPath;
 
     public FileSaveStrategy(String fileSavingPath) {
         this.fileSavingPath = fileSavingPath;
     }
-
 
     public FileSaveStrategy() {
     }
@@ -35,14 +36,13 @@ public class FileSaveStrategy implements SavingStrategy {
         LocalDate ld = LocalDateTime.now().toLocalDate();
         UUID random = UUID.randomUUID();
         String filePath = getFilePathString(ld, random);
-        FileWriter fileWriter = null;
+        FileWriter fileWriter = new FileWriter(filePath);
         try {
-            fileWriter = new FileWriter(filePath);
             fileWriter.write(logbook.toJson().toString());
             logger.info("logbook {} was created on file", logbook);
             fileWriter.flush();
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            logger.error("Error creating file to File system {}", e);
         } finally {
             fileWriter.close();
         }

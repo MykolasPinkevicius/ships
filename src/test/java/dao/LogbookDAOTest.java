@@ -18,8 +18,6 @@ import static org.mockito.Mockito.*;
 
 class LogbookDAOTest {
 
-
-
     @InjectMocks
     private LogbookDAO logbookDAO;
 
@@ -30,6 +28,7 @@ class LogbookDAOTest {
     private Date dateForAll;
     private Logbook logger;
     private List<Logbook> logList;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -68,6 +67,7 @@ class LogbookDAOTest {
 
         assertEquals(logList, list);
     }
+
     @Test
     public void findByArrivalPortTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
@@ -78,6 +78,7 @@ class LogbookDAOTest {
 
         assertEquals(logList, list);
     }
+
     @Test
     public void findByCatchSpeciesTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
@@ -88,6 +89,7 @@ class LogbookDAOTest {
 
         assertEquals(logList, list);
     }
+
     @Test
     public void findByDeparturePort() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
@@ -98,6 +100,7 @@ class LogbookDAOTest {
 
         assertEquals(logList, list);
     }
+
     @Test
     public void findByDepartureDate() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
@@ -108,6 +111,7 @@ class LogbookDAOTest {
 
         assertEquals(logList, list);
     }
+
     @Test
     public void findByEndOfFishingDateTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
@@ -119,7 +123,8 @@ class LogbookDAOTest {
         assertEquals(logList, list);
 
     }
-//    TODO pessimistic lock test
+
+    //    TODO pessimistic lock test
     @Test
     public void pessimisticLockingTest() {
 
