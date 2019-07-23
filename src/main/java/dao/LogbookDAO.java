@@ -34,37 +34,43 @@ public class LogbookDAO {
     }
 
     public List<Logbook> findAll() {
-        return em.createQuery("select l from Logbook l").getResultList();
+        return em.createQuery("select l from Logbook l").setLockMode(LockModeType.PESSIMISTIC_READ).getResultList();
     }
 
     public List<Logbook> findByDeparturePort(String departurePort) {
         return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.PORT = ?1", Logbook.class)
                 .setParameter(1, departurePort)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public List<Logbook> findByDepartureDate(String departureDate) {
         return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.DATE = ?1", Logbook.class)
                 .setParameter(1, departureDate)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public List<Logbook> findByCatchSpecies(String catchSpecies) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join CATCH C on U.ACATCH_ID = C.ID where C.SPECIES = ?1", Logbook.class)
                 .setParameter(1, catchSpecies)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public List<Logbook> findByArrivalPort(String arrivalPort) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.PORT = ?1", Logbook.class)
                 .setParameter(1,arrivalPort)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public List<Logbook> findByArrivalDate(String arrivalDate) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.DATE = ?1", Logbook.class)
                 .setParameter(1,arrivalDate)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public List<Logbook> findByEndOfFishingDate(String endOfFishingDate) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ENDOFFISHING E on U.ENDOFFISHING_ID = E.ID where E.DATE = ?1", Logbook.class)
                 .setParameter(1,endOfFishingDate)
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
     public void create(Logbook logbook) throws IOException {
@@ -90,7 +96,8 @@ public class LogbookDAO {
     }
 
     public Logbook findById(Long id) {
-        return em.find(Logbook.class, id);
+        return em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
+
     }
 
     public void remove(Long id) {
@@ -98,9 +105,9 @@ public class LogbookDAO {
     }
 
     public void update(Long id, Logbook logbook) {
-        Logbook updatedLogbook = em.find(Logbook.class, id);
-        em.lock(updatedLogbook, LockModeType.PESSIMISTIC_WRITE);
+        Logbook updatedLogbook = em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
         updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
+        em.flush();
         em.merge(updatedLogbook);
     }
 

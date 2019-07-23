@@ -4,6 +4,7 @@ import model.Catch;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import java.util.List;
@@ -15,14 +16,17 @@ public class CatchDAO {
     private EntityManager em;
 
     public List<Catch> findAll() {
-        return em.createQuery("select c from Catch c").getResultList();
+        return em.createQuery("select c from Catch c")
+                .setLockMode(LockModeType.PESSIMISTIC_READ)
+                .getResultList();
     }
+
     public void create(Catch aCatch) {
-            em.persist(aCatch);
+        em.persist(aCatch);
     }
 
     public Catch findById(Long id) {
-        return em.find(Catch.class, id);
+        return em.find(Catch.class, id, LockModeType.PESSIMISTIC_READ);
     }
 
     public void remove(Long id) {
