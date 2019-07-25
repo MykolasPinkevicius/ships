@@ -39,42 +39,36 @@ public class LogbookDAO {
     public List<Logbook> findByDeparturePort(String departurePort) {
         return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.PORT = ?1", Logbook.class)
                 .setParameter(1, departurePort)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
     public List<Logbook> findByDepartureDate(String departureDate) {
         return em.createNativeQuery("SELECT U.ID,COMMUNICATIONTYPE,ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join DEPARTURE D on U.DEPARTURE_ID = D.ID where D.DATE = ?1", Logbook.class)
                 .setParameter(1, departureDate)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
     public List<Logbook> findByCatchSpecies(String catchSpecies) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join CATCH C on U.ACATCH_ID = C.ID where C.SPECIES = ?1", Logbook.class)
                 .setParameter(1, catchSpecies)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
     public List<Logbook> findByArrivalPort(String arrivalPort) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.PORT = ?1", Logbook.class)
                 .setParameter(1, arrivalPort)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
     public List<Logbook> findByArrivalDate(String arrivalDate) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ARRIVAL A on U.ARRIVAL_ID = A.ID where A.DATE = ?1", Logbook.class)
                 .setParameter(1, arrivalDate)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
     public List<Logbook> findByEndOfFishingDate(String endOfFishingDate) {
         return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ENDOFFISHING E on U.ENDOFFISHING_ID = E.ID where E.DATE = ?1", Logbook.class)
                 .setParameter(1, endOfFishingDate)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .getResultList();
     }
 
@@ -116,7 +110,7 @@ public class LogbookDAO {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+           logger.error("Error happened during Thread sleep", e);
         }
 
         em.flush();

@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.util.*;
@@ -62,7 +61,6 @@ class LogbookDAOTest {
     public void findByArrivalDateTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByArrivalDate("1999-03-15");
@@ -74,7 +72,6 @@ class LogbookDAOTest {
     public void findByArrivalPortTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByArrivalPort("Portas");
@@ -86,7 +83,6 @@ class LogbookDAOTest {
     public void findByCatchSpeciesTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByCatchSpecies("Salmon");
@@ -98,7 +94,6 @@ class LogbookDAOTest {
     public void findByDeparturePort() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByDeparturePort("Portas");
@@ -110,7 +105,6 @@ class LogbookDAOTest {
     public void findByDepartureDate() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByDepartureDate("1999-05-13");
@@ -122,7 +116,6 @@ class LogbookDAOTest {
     public void findByEndOfFishingDateTest() {
         when(entityManager.createNativeQuery(anyString(), eq(Logbook.class))).thenReturn(typedQuery);
         when(typedQuery.setParameter(anyInt(), anyString())).thenReturn(typedQuery);
-        when(typedQuery.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(typedQuery);
         when(typedQuery.getResultList()).thenReturn(Arrays.asList(logbook));
 
         List<Logbook> list = logbookDAO.findByDepartureDate("2222-11-13");
