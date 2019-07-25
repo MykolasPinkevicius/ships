@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 
@@ -45,6 +46,7 @@ class ConfigurationDAOTest {
     void findByKey() {
         when(entityManager.createNativeQuery(anyString(), eq(Configuration.class))).thenReturn(mockedQuerry);
         when(mockedQuerry.setParameter(anyInt(), anyString())).thenReturn(mockedQuerry);
+        when(mockedQuerry.setLockMode(LockModeType.PESSIMISTIC_READ)).thenReturn(mockedQuerry);
         when(mockedQuerry.getResultList()).thenReturn(Arrays.asList(configuration));
 
         Configuration actualConfiguration = configurationDAO.findByKey("inboxPath");
