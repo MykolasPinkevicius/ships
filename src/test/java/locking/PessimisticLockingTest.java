@@ -15,6 +15,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Calendar;
@@ -23,8 +24,8 @@ import java.util.GregorianCalendar;
 
 @RunWith(Arquillian.class)
 public class PessimisticLockingTest {
-    private static Logger logger = LogManager.getLogger(PessimisticLockingTest.class);
-    private static final Date DATEFORALL = new GregorianCalendar(2019, Calendar.AUGUST, 9).getTime();
+    private static final Date DATEFORALL = new GregorianCalendar(
+            2019, Calendar.AUGUST, 9).getTime();
     private static final Logbook LOGBOOK = new Logbook(
             new Departure("portas", DATEFORALL),
             new Catch("Salmon", 52),
@@ -35,6 +36,7 @@ public class PessimisticLockingTest {
             new Catch("SalmonSalmon", 52),
             new Arrival("portasportas", DATEFORALL),
             new EndOfFishing(DATEFORALL), "online");
+    private static Logger logger = LogManager.getLogger(PessimisticLockingTest.class);
     @Inject
     private LogbookDAO logbookDAO;
 
@@ -63,10 +65,10 @@ public class PessimisticLockingTest {
         try {
             t1.start();
             t2.start();
-            t1.join();
-            t2.join();
+            t1.getState();
+            t2.getState();
 
-        } catch (java.lang.Exception exception) {
+        } catch (EJBException exception) {
             logger.error("problem was found during {}", exception);
         }
     }
@@ -74,16 +76,21 @@ public class PessimisticLockingTest {
     class SearchAndLockEntity implements Runnable {
         @Override
         public void run() {
-            logbookDAO.update(5L,LOGBOOK2);
-            System.err.println(logbookDAO.findById(5L));
+            logbookDAO.update(5L, LOGBOOK2);
         }
     }
 
-    class SearchEntity implements  Runnable {
+    class SearchEntity implements Runnable {
         @Override
         public void run() {
-            logbookDAO.update(5L, LOGBOOK);
-            System.err.println(logbookDAO.findById(5L));
+            System.err.println(logbookDAO.findById(5L) + "2nd nibba");
+            try {
+                logbookDAO.findById(5L);
+            } catch (EJBException e) {
+                e.getCausedByException();
+                logger.error("Exception was caught {}", e);
+                System.out.println("pagavom!!!");
+            }
         }
     }
 }

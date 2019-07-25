@@ -95,7 +95,7 @@ public class LogbookDAO {
     }
 
     public Logbook findById(Long id) {
-        return em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
+        return em.find(Logbook.class, id);
 
     }
 
@@ -105,13 +105,13 @@ public class LogbookDAO {
 
     public void update(Long id, Logbook logbook) {
         Logbook updatedLogbook = em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            logger.error("Error happened during Thread sleep", e);
+        }
         updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-           logger.error("Error happened during Thread sleep", e);
-        }
 
         em.flush();
         em.merge(updatedLogbook);
