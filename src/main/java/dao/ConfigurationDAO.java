@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class ConfigurationDAO {
 
     public Configuration findByKey(String key) {
         List<Configuration> con = em.createNativeQuery("SELECT c.ID,c.KEY, c.VALUE from CONFIGURATION c where c.key = ?1", Configuration.class)
-                .setLockMode(LockModeType.PESSIMISTIC_READ)
                 .setParameter(1, key)
                 .getResultList();
         return con.get(0);

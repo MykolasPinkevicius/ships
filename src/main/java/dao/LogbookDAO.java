@@ -18,11 +18,10 @@ import java.util.List;
 @Stateless
 public class LogbookDAO {
 
+    @PersistenceContext
+    private EntityManager em;
     @Inject
     private ConfigurationDAO configurationDAO;
-
-    @PersistenceContext EntityManager em;
-
     private Logger logger = LogManager.getLogger(Logbook.class);
 
     public LogbookDAO(EntityManager entityManager) {
@@ -95,6 +94,7 @@ public class LogbookDAO {
     }
 
     public Logbook findById(Long id) {
+//      TODO Lock this method
         return em.find(Logbook.class, id);
 
     }
@@ -105,9 +105,10 @@ public class LogbookDAO {
 
     public void update(Long id, Logbook logbook) {
         Logbook updatedLogbook = em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
+//        TODO Delete this after Stand up about locking
         try {
             Thread.sleep(5000);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             logger.error("Error happened during Thread sleep", e);
         }
         updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
