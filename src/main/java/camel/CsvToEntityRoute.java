@@ -26,27 +26,32 @@ public class CsvToEntityRoute extends RouteBuilder {
                 .streaming()
                 .choice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Arrival.csv"))
-                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Arrival.csv")
+                .to(PathEnums.CSVDELETEPATH.getPath())
+                .pollEnrich(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Arrival.csv")
                 .process().exchange(exchange ->
                 EntitiesParser.arrivalCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Departure.csv"))
-                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Departure.csv")
+                .to(PathEnums.CSVDELETEPATH.getPath())
+                .pollEnrich(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Departure.csv")
                 .process().exchange(exchange ->
                 EntitiesParser.departureCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Catch.csv"))
-                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Catch.csv")
+                .to(PathEnums.CSVDELETEPATH.getPath())
+                .pollEnrich(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Catch.csv")
                 .process().exchange(exchange ->
                 EntitiesParser.catchCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("EndOfFishing.csv"))
-                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=EndOfFishing.csv")
+                .to(PathEnums.CSVDELETEPATH.getPath())
+                .pollEnrich(PathEnums.CSVDELETEPATH.getPath() + "?fileName=EndOfFishing.csv")
                 .process().exchange(exchange ->
                 EntitiesParser.endOfFishingCSVParser(logbookMap)
         ).endChoice()
                 .when(header(CONFIGURE_HEADER_NAME).isEqualTo("Logbook.csv"))
-                .to(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Logbook.csv")
+                .to(PathEnums.CSVDELETEPATH.getPath())
+                .pollEnrich(PathEnums.CSVDELETEPATH.getPath() + "?fileName=Logbook.csv")
                 .process().exchange(exchange ->
                 EntitiesParser.logbookCommunicationTypeCSVParser(logbookMap)
         ).endChoice()
@@ -61,7 +66,6 @@ public class CsvToEntityRoute extends RouteBuilder {
                 logbookListToString.add(logbookString);
             }
             exchange.getOut().setBody(logbookListToString.toString());
-            logbookMap.clear();
         })
 
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
