@@ -83,8 +83,9 @@ public class PessimisticLockingTest {
     class SearchEntity implements Runnable {
         @Override
         public void run() {
-            System.err.println(logbookDAO.findById(5L) + "2nd nibba");
+//            System.err.println(logbookDAO.findById(5L) + "2nd nibba");
             try {
+                System.err.println(logbookDAO.findById(5L) + "2nd nibba");
                 logbookDAO.findById(5L);
             } catch (EJBException e) {
                 e.getCausedByException();

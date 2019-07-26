@@ -52,6 +52,7 @@ public class CsvToEntityRoute extends RouteBuilder {
         ).endChoice()
                 .end()
                 .end()
+//                TODO 5 times invoked
                 .process().exchange(exchange -> {
             List<Logbook> logbookList = EntitiesParser.logbookListCSVParser(logbookMap);
             List<String> logbookListToString = new ArrayList<>();

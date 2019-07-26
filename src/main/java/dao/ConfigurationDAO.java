@@ -13,19 +13,20 @@ import java.util.List;
 @Stateless
 public class ConfigurationDAO {
 
+    private static final Logger logger = LogManager.getLogger(ConfigurationDAO.class);
     @PersistenceContext(name = "prod")
     private EntityManager em;
 
-    private static final Logger logger = LogManager.getLogger(ConfigurationDAO.class);
-
-    public ConfigurationDAO(EntityManager entityManager) { this.em = entityManager; }
+    public ConfigurationDAO(EntityManager entityManager) {
+        this.em = entityManager;
+    }
 
     public ConfigurationDAO() {
     }
 
     public void create(Configuration configuration) {
-            em.persist(configuration);
-            logger.info("Configuration {} was saved to database", configuration);
+        em.persist(configuration);
+        logger.info("Configuration {} was saved to database", configuration);
     }
 
     public Configuration findByKey(String key) {

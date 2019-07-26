@@ -19,7 +19,7 @@ import java.util.List;
 public class LogbookDAO {
 
     @PersistenceContext
-    private EntityManager em;
+    EntityManager em;
     @Inject
     private ConfigurationDAO configurationDAO;
     private Logger logger = LogManager.getLogger(Logbook.class);
