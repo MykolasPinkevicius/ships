@@ -17,7 +17,7 @@ import java.util.Map;
 public class CsvToEntityRoute extends RouteBuilder {
 
     private static final String CONFIGURE_HEADER_NAME = "zipFileName";
-    private static Map<String, Map<String, Object>> logbookMap = new HashMap<>();
+    private Map<String, Map<String, Object>> logbookMap = new HashMap<>();
 
     @Override
     public void configure() {
@@ -52,7 +52,7 @@ public class CsvToEntityRoute extends RouteBuilder {
         ).endChoice()
                 .end()
                 .end()
-//                TODO 5 times invoke
+//                TODO fix 5 times invoked
                 .process().exchange(exchange -> {
             List<Logbook> logbookList = EntitiesParser.logbookListCSVParser(logbookMap);
             List<String> logbookListToString = new ArrayList<>();
@@ -61,6 +61,7 @@ public class CsvToEntityRoute extends RouteBuilder {
                 logbookListToString.add(logbookString);
             }
             exchange.getOut().setBody(logbookListToString.toString());
+            logbookMap.clear();
         })
 
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
