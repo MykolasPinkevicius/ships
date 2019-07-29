@@ -47,6 +47,11 @@ class LogbookDAOTest {
         logbookDAO.create(logbook);
         verify(entityManager, times(1)).merge(logbook);
     }
+    @Test
+    public void createAllTest() {
+        logbookDAO.createAll(logList);
+        verify(entityManager, times(1)).merge(logbook);
+    }
 
     @Test
     void delete() {

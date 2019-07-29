@@ -42,12 +42,12 @@ public class EntitiesParser {
                     .withDelimiter(';'))) {
 
                 for (CSVRecord record : csvParser) {
-                    String iD = record.get("ID");
+                    String id = record.get("ID");
                     String logbookID = record.get(LOGBOOKID);
                     String port = record.get("port");
                     String date = record.get("date");
                     Arrival arrival = new Arrival(port, Date.valueOf(date));
-                    arrival.setId(Long.valueOf(iD));
+                    arrival.setId(Long.valueOf(id));
                     if (!logbookMap.containsKey(logbookID)) {
                         logbookMap.put(logbookID, new HashMap<>());
                         logbookMap.get(logbookID).put(ARRIVAL, arrival);
@@ -72,12 +72,12 @@ public class EntitiesParser {
                     .withDelimiter(';'))) {
 
                 for (CSVRecord record : csvParser) {
-                    String iD = record.get("ID");
+                    String id = record.get("ID");
                     String logbookID = record.get(LOGBOOKID);
                     String port = record.get("port");
                     String date = record.get("date");
                     Departure departure = new Departure(port, Date.valueOf(date));
-                    departure.setId(Long.valueOf(iD));
+                    departure.setId(Long.valueOf(id));
                     if (!logbookMap.containsKey(logbookID)) {
                         logbookMap.put(logbookID, new HashMap<>());
                         logbookMap.get(logbookID).put(DEPARTURE, departure);
@@ -102,12 +102,12 @@ public class EntitiesParser {
                     .withDelimiter(';'))) {
 
                 for (CSVRecord record : csvParser) {
-                    String iD = record.get("ID");
+                    String id = record.get("ID");
                     String logbookID = record.get(LOGBOOKID);
                     String species = record.get("species");
                     String weight = record.get("weight");
                     Catch aCatch = new Catch(species, Double.valueOf(weight));
-                    aCatch.setId(Long.valueOf(iD));
+                    aCatch.setId(Long.valueOf(id));
                     if (!logbookMap.containsKey(logbookID)) {
                         logbookMap.put(logbookID, new HashMap<>());
                         logbookMap.get(logbookID).put(CATCH, aCatch);
@@ -132,11 +132,11 @@ public class EntitiesParser {
                     .withDelimiter(';'))) {
 
                 for (CSVRecord record : csvParser) {
-                    String iD = record.get("ID");
+                    String id = record.get("ID");
                     String logbookID = record.get(LOGBOOKID);
                     String date = record.get("date");
                     EndOfFishing endOfFishing = new EndOfFishing(Date.valueOf(date));
-                    endOfFishing.setId(Long.valueOf(iD));
+                    endOfFishing.setId(Long.valueOf(id));
                     if (!logbookMap.containsKey(logbookID)) {
                         logbookMap.put(logbookID, new HashMap<>());
                         logbookMap.get(logbookID).put(ENDOFFISHING, endOfFishing);
@@ -161,15 +161,15 @@ public class EntitiesParser {
                     .withDelimiter(';'))) {
 
                 for (CSVRecord record : csvParser) {
-                    String iD = record.get("ID");
+                    String id = record.get("ID");
                     String communicationType = record.get(COMMUNICATIONTYPE);
                     Logbook logbook = new Logbook(null, null, null, null, communicationType);
-                    logbook.setId(Long.valueOf(iD));
-                    if (!logbookMap.containsKey(iD)) {
-                        logbookMap.put(iD, new HashMap<>());
-                        logbookMap.get(iD).put(COMMUNICATIONTYPE, communicationType);
+                    logbook.setId(Long.valueOf(id));
+                    if (!logbookMap.containsKey(id)) {
+                        logbookMap.put(id, new HashMap<>());
+                        logbookMap.get(id).put(COMMUNICATIONTYPE, communicationType);
                     } else {
-                        logbookMap.get(iD).put(COMMUNICATIONTYPE, communicationType);
+                        logbookMap.get(id).put(COMMUNICATIONTYPE, communicationType);
                     }
                 }
             }
