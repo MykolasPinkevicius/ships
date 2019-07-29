@@ -105,7 +105,8 @@ public class LogbookDAO {
     }
 
     public void remove(Long id) {
-        em.remove(id);
+        Logbook logbook = em.find(Logbook.class, id);
+        em.remove(logbook);
     }
 
     public void update(Long id, Logbook logbook) {
