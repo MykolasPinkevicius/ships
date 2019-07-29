@@ -71,6 +71,11 @@ public class LogbookDAO {
                 .getResultList();
     }
 
+    public List<Logbook> findOneYearOldLogbooks() {
+        return em.createNativeQuery("SELECT U.ID, COMMUNICATIONTYPE, ACATCH_ID, ARRIVAL_ID, DEPARTURE_ID, ENDOFFISHING_ID from LOGBOOK U join ENDOFFISHING E on U.ENDOFFISHING_ID = E.ID where E.DATE <= DATEADD(year, -1, GetDate())", Logbook.class)
+                .getResultList();
+    }
+
     public void create(Logbook logbook) throws IOException {
         getStrategy(logbook).create(logbook);
     }
