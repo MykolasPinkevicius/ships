@@ -13,12 +13,6 @@ public class ArchiveDAO {
     @PersistenceContext
     EntityManager entityManager;
 
-//    public ArchiveDAO(EntityManager entityManager) {
-//        this.entityManager = entityManager;
-//    }
-
-//    public ArchiveDAO() {}
-
     public void create(Archive archive) {
         entityManager.persist(archive);
     }
@@ -26,4 +20,10 @@ public class ArchiveDAO {
     public Archive findById(Long id) {
         return entityManager.find(Archive.class, id, LockModeType.PESSIMISTIC_READ);
     }
+
+    public void delete(Long id) {
+        Archive archive = entityManager.find(Archive.class, id);
+        entityManager.remove(archive);
+    }
+
 }
