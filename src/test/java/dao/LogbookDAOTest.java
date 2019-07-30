@@ -59,7 +59,7 @@ class LogbookDAOTest {
 
         logbookDAO.remove(logbookId);
 
-        verify(entityManager, times(1)).remove(logbookId);
+        verify(entityManager, times(1)).remove(Logbook.class);
     }
 
     @Test

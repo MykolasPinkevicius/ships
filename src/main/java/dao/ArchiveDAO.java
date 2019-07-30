@@ -22,7 +22,7 @@ public class ArchiveDAO {
     }
 
     public void delete(Long id) {
-        Archive archive = entityManager.find(Archive.class, id);
+        Archive archive = entityManager.find(Archive.class, id, LockModeType.PESSIMISTIC_READ);
         entityManager.remove(archive);
     }
 
