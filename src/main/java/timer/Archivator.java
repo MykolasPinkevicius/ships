@@ -24,7 +24,7 @@ public class Archivator {
 
     private Logger logger = LogManager.getLogger(Archivator.class);
 
-    @Schedule(second = "*", minute = "*", hour = "*/1")
+    @Schedule(hour = "*/1")
     public void archiveYearOldArchives() {
         List<Logbook> logbookList;
         logbookList = logbookDAO.findOneYearOldLogbooks();
