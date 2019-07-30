@@ -24,8 +24,7 @@ public class Archivator {
 
     private Logger logger = LogManager.getLogger(Archivator.class);
 
-    //    TODO change to realistic schedule each day or week.
-    @Schedule(second = "*/10", minute = "*", hour = "*")
+    @Schedule(second = "*", minute = "*", hour = "*/1")
     public void archiveYearOldArchives() {
         List<Logbook> logbookList;
         logbookList = logbookDAO.findOneYearOldLogbooks();
@@ -35,7 +34,7 @@ public class Archivator {
             Date date = new Date();
             Archive archive = new Archive(serializedLogbook, date);
             archiveDAO.create(archive);
-            logbookDAO.remove(Long.valueOf(logbook.getId()));
+            logbookDAO.remove(logbook.getId());
         }
     }
 }
