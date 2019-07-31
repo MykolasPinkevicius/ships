@@ -105,7 +105,7 @@ public class LogbookDAO {
     }
 
     public void remove(Long id) {
-        Logbook logbook = em.find(Logbook.class, id);
+        Logbook logbook = em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
         em.remove(logbook);
     }
 

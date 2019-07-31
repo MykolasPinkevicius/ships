@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.util.*;
@@ -56,11 +57,8 @@ class LogbookDAOTest {
 
     @Test
     void delete() {
-        Long logbookId = 1L;
-
-        logbookDAO.remove(logbookId);
-
-        verify(entityManager, times(1)).remove(Logbook.class);
+        logbookDAO.remove(5L);
+        verify(entityManager, times(1)).find(Logbook.class, 5L, LockModeType.PESSIMISTIC_READ);
     }
 
     @Test
