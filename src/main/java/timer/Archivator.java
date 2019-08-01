@@ -20,7 +20,7 @@ public class Archivator {
     @Inject
     private ArchiveDAO archiveDAO;
 
-    @Schedule(hour = "*/10")
+    @Schedule(hour = "12/10")
     public void archiveYearOldLogbooks() {
         List<Logbook> logbookList;
         logbookList = logbookDAO.findOneYearOldLogbooks();
@@ -34,7 +34,7 @@ public class Archivator {
         }
     }
 
-    @Schedule(hour = "*/10")
+    @Schedule(hour = "12/10")
     public void archiveMonthOldArchives() {
         List<Archive> archiveList;
         archiveList = archiveDAO.findMonthOldArchives();
