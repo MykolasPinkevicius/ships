@@ -3,7 +3,7 @@ package enums;
 public enum PathEnums {
 
     SCANPATH("file:C:\\Dev\\zip\\logbook?noop=false&delete=true"),
-    ZIPSCANPATH("file:C:\\Dev\\zip?delete=true"),
+    ZIPSCANPATH("file:C:\\Dev\\zip?delete=true&initialDelay=5000&delay=5000"),
     CSVDELETEPATH("file:C:\\Dev\\zip\\"),
     //  Currently using database configuration table, left it for different app configuration
 //  ZIPPATH("C:\\Dev\\zip\\"),

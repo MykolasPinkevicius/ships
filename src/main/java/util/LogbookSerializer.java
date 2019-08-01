@@ -13,12 +13,11 @@ public class LogbookSerializer {
 
     public static String serializeToString(Object object) {
         ObjectMapper objectMapper = new ObjectMapper();
-        String resultString = null;
         try {
-            resultString = objectMapper.writeValueAsString(object);
+            return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            logger.info("There was problem with serialising logbook {} ", e);
+            logger.error("Error on serialising {}",e);
+            throw new RuntimeException(e);
         }
-        return resultString;
     }
 }

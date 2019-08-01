@@ -85,7 +85,7 @@ public class LogbookDAO {
             try {
                 getStrategy(logbook).create(logbook);
             } catch (IOException e) {
-                logger.error("Saving logbooks failed on service layer {}", e);
+                logger.error("Saving logbooks failed on service layer {}", e.getMessage());
             }
         }
     }
@@ -99,8 +99,7 @@ public class LogbookDAO {
     }
 
     public Logbook findById(Long id) {
-//      TODO Lock this method
-        return em.find(Logbook.class, id);
+        return em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
 
     }
 
@@ -111,15 +110,16 @@ public class LogbookDAO {
 
     public void update(Long id, Logbook logbook) {
         Logbook updatedLogbook = em.find(Logbook.class, id, LockModeType.PESSIMISTIC_READ);
-//        TODO Delete this after Stand up about locking
         try {
             Thread.sleep(5000);
-        } catch (Exception e) {
-            logger.error("Error happened during Thread sleep", e);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage());
         }
-        updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
-
-
+        try {
+            updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);
+        } catch (Exception e) {
+            logger.error("Error happened during updating Logbook sleep {}", e.getMessage());
+        }
         em.flush();
         em.merge(updatedLogbook);
     }

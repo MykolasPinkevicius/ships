@@ -7,10 +7,7 @@ import util.DateStringFormatter;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -23,6 +20,7 @@ public class Archive {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
+    @Lob
     private String deserializedLogbook;
     @NotNull
     private Date dateDeleted;
@@ -48,6 +46,14 @@ public class Archive {
 
     public void setDateDeleted(Date deletedDate) {
         this.dateDeleted = deletedDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public JsonObject toJson() {
