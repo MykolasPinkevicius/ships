@@ -3,9 +3,9 @@ package security;
 import io.jsonwebtoken.Jwts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.KeyGenerator;
 
 import javax.annotation.Priority;
-import javax.crypto.KeyGenerator;
 import javax.inject.Inject;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -20,6 +20,7 @@ import java.security.Key;
 @JWTTokenNeeded
 @Priority(Priorities.AUTHENTICATION)
 public class JWTTokenNeededFilter implements ContainerRequestFilter {
+
     @Inject
     private KeyGenerator keyGenerator;
 
