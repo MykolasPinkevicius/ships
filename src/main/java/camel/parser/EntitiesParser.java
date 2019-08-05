@@ -57,7 +57,7 @@ public class EntitiesParser {
                 }
             }
         } catch (IOException e) {
-            logger.error("Error happened during parsing arrival {}", e);
+            logger.error("Error happened during parsing arrival {}", e.getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ public class EntitiesParser {
                 }
             }
         } catch (IOException e) {
-            logger.error("Error happened during parsing departure {}", e);
+            logger.error("Error happened during parsing departure {}", e.getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ public class EntitiesParser {
                 }
             }
         } catch (IOException e) {
-            logger.error("Error happened during parsing catch {}", e);
+            logger.error("Error happened during parsing catch {}", e.getMessage());
         }
     }
 
@@ -146,7 +146,7 @@ public class EntitiesParser {
                 }
             }
         } catch (IOException e) {
-            logger.error("Error happened during parsing endOfFishing {}", e);
+            logger.error("Error happened during parsing endOfFishing {}", e.getMessage());
         }
     }
 
@@ -174,7 +174,7 @@ public class EntitiesParser {
                 }
             }
         } catch (IOException e) {
-            logger.error("Error happened during parsing logbook CommunicationType {}", e);
+            logger.error("Error happened during parsing logbook CommunicationType {}", e.getMessage());
         }
     }
 
