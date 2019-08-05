@@ -1,8 +1,10 @@
 package util;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.ejb.Stateless;
 import java.security.Key;
 
+@Stateless
 public class KeyGenerator {
 
     public Key generateKey() {

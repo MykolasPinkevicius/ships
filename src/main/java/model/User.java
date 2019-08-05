@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = User.FIND_BY_LOGIN_PASSWORD, query = "SELECT u FROM User u  WHERE u.username = :login AND u.password = :password")
+        @NamedQuery(name = User.FIND_BY_LOGIN_PASSWORD, query = "SELECT u FROM User u WHERE u.username = :login AND u.password = :password")
 })
 public class User {
 

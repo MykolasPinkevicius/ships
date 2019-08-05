@@ -59,6 +59,12 @@ public class UserEndpoint {
         }
     }
 
+    @POST
+    public Response create(User user) {
+        entityManager.persist(user);
+        return Response.created(uriInfo.getAbsolutePathBuilder().path(user.getId().toString()).build()).build();
+    }
+
     private String issueToken(String login) {
         Key key = keyGenerator.generateKey();
         String jwtToken = Jwts.builder()
