@@ -1,13 +1,15 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = User.FIND_BY_LOGIN_PASSWORD, query = "SELECT u FROM User u  WHERE u.username = :login AND u.password = :password")
+})
 public class User {
+
+    public static final String FIND_BY_LOGIN_PASSWORD = "User.findByLoginAndPassword";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
