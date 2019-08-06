@@ -62,7 +62,7 @@ public class EndOfFishing {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            logger.error("Error during toString EndOfFishing {}", e);
+            logger.error("Error during toString EndOfFishing {}", e.getMessage());
         }
         return json;
     }

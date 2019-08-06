@@ -130,7 +130,7 @@ public class Logbook {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-           logger.error("Error during toString Logbook {}", e);
+           logger.error("Error during toString Logbook {}", e.getMessage());
         }
         return json;
     }

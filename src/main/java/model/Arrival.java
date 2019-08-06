@@ -76,7 +76,7 @@ public class Arrival {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            logger.error("Error during toString Arrival {}", e);
+            logger.error("Error during toString Arrival {}", e.getMessage());
         }
         return json;
     }

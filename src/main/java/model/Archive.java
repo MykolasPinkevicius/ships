@@ -70,7 +70,7 @@ public class Archive {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            logger.error("Error during toString Archieve {}", e);
+            logger.error("Error during toString Archieve {}", e.getMessage());
         }
         return json;
     }

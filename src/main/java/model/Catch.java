@@ -73,7 +73,7 @@ public class Catch {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            logger.error("Error during toString Catch {}", e);
+            logger.error("Error during toString Catch {}", e.getMessage());
         }
         return json;
     }

@@ -42,7 +42,7 @@ public class FileSaveStrategy implements SavingStrategy {
             logger.info("logbook {} was created on file", logbook);
             fileWriter.flush();
         } catch (IOException e) {
-            logger.error("Error creating file to File system {}", e);
+            logger.error("Error creating file to File system {}", e.getMessage());
         } finally {
             fileWriter.close();
         }

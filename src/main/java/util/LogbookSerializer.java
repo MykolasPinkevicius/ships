@@ -9,14 +9,15 @@ public class LogbookSerializer {
 
     private static Logger logger = LogManager.getLogger(LogbookSerializer.class);
 
-    private LogbookSerializer(){}
+    private LogbookSerializer() {
+    }
 
     public static String serializeToString(Object object) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            logger.error("Error on serialising {}",e);
+            logger.error("Error on serialising {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }

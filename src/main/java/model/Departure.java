@@ -73,7 +73,7 @@ public class Departure {
         try {
             json = mapperObj.writeValueAsString(this);
         } catch (Exception e) {
-            logger.error("Error during toString Departure {}", e);
+            logger.error("Error during toString Departure {}", e.getMessage());
         }
         return json;
     }
