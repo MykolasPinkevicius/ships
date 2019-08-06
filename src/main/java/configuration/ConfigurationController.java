@@ -27,7 +27,7 @@ public class ConfigurationController {
         try {
             configurationDAO.create(configuration);
         } catch (Exception e) {
-            logger.error("Configuration saving failed {} ", e);
+            logger.error("Configuration saving failed {} ", e.getMessage());
         }
     }
 

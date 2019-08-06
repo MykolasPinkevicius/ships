@@ -114,6 +114,7 @@ public class LogbookDAO {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             logger.error(e.getMessage());
+            Thread.currentThread().interrupt();
         }
         try {
             updatedLogbook = Logbook.updateLogbook(updatedLogbook, logbook);

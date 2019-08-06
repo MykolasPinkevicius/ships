@@ -25,7 +25,7 @@ public class FileTransfer {
             camelContext.addRoutes(new FileToObjectRoute());
             camelContext.addRoutes(new CsvToEntityRoute());
         } catch (Exception e) {
-            logger.error("Error was in camelContext starting {}", e);
+            logger.error("Error was in camelContext starting {}", e.getMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class FileTransfer {
         try {
             camelContext.stop();
         } catch (Exception e) {
-            logger.error("Error was in camelContext shutting down {}", e);
+            logger.error("Error was in camelContext shutting down {}", e.getMessage());
         }
     }
 }

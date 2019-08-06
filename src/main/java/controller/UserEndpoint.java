@@ -77,7 +77,7 @@ public class UserEndpoint {
         return jwtToken;
     }
 
-    private void authenticate(String login, String password) throws Exception {
+    private void authenticate(String login, String password) {
         TypedQuery<User> query = entityManager.createNamedQuery(User.FIND_BY_LOGIN_PASSWORD, User.class);
         query.setParameter("login", login);
         query.setParameter("password", password);
