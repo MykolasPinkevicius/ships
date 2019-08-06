@@ -6,7 +6,6 @@ import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.KeyGenerator;
-import util.PasswordUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -81,7 +80,8 @@ public class UserEndpoint {
     private void authenticate(String login, String password) throws Exception {
         TypedQuery<User> query = entityManager.createNamedQuery(User.FIND_BY_LOGIN_PASSWORD, User.class);
         query.setParameter("login", login);
-        query.setParameter("password", PasswordUtils.digestPassword(password));
+        query.setParameter("password", password);
+//        query.setParameter("password", PasswordUtils.digestPassword(password));
         User user = query.getSingleResult();
 
         if (user == null)

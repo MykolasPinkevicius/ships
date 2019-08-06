@@ -2,6 +2,7 @@ package controller;
 
 import dao.LogbookDAO;
 import model.Logbook;
+import security.JWTTokenNeeded;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ public class LogbookController {
     private LogbookDAO logbookDAO;
 
     @POST
+    @JWTTokenNeeded
     public Response save(@Valid Logbook logbook) throws IOException {
         logbookDAO.create(logbook);
         return Response.ok().build();
