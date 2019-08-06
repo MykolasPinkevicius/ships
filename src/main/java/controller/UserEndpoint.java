@@ -6,6 +6,7 @@ import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.KeyGenerator;
+import util.PasswordUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -48,7 +49,7 @@ public class UserEndpoint {
     public Response authenticateUser(@FormParam("login") String login,
                                      @FormParam("password") String password) {
         try {
-            authenticate(login,password);
+            authenticate(login,PasswordUtils.encode(password));
 
             String token = issueToken(login);
 
@@ -60,6 +61,7 @@ public class UserEndpoint {
 
     @POST
     public Response create(User user) {
+        user.setPassword(PasswordUtils.encode(user.getPassword()));
         entityManager.persist(user);
         return Response.created(uriInfo.getAbsolutePathBuilder().path(user.getId().toString()).build()).build();
     }
@@ -81,7 +83,6 @@ public class UserEndpoint {
         TypedQuery<User> query = entityManager.createNamedQuery(User.FIND_BY_LOGIN_PASSWORD, User.class);
         query.setParameter("login", login);
         query.setParameter("password", password);
-//        query.setParameter("password", PasswordUtils.digestPassword(password));
         User user = query.getSingleResult();
 
         if (user == null)
